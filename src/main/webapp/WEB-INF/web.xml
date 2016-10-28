@@ -4,6 +4,31 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
     <display-name>cooperative</display-name>
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>ru.innopolis.sportgym.servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>registrationPage</servlet-name>
+        <servlet-class>ru.innopolis.sportgym.servlets.RegistrationPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>registrationUserServlet</servlet-name>
+        <servlet-class>ru.innopolis.sportgym.servlets.RegistrationUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registrationPage</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registrationUserServlet</servlet-name>
+        <url-pattern>/saveProfile</url-pattern>
+    </servlet-mapping>
+
 
     <session-config>
         <session-timeout>180</session-timeout>
@@ -11,12 +36,13 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/jsp/404.jsp</location>
+        <location>/404.jsp</location>
     </error-page>
     <error-page>
         <error-code>403</error-code>
-        <location>/jsp/403.jsp</location>
+        <location>/403.jsp</location>
     </error-page>
+
 
 
 </web-app>

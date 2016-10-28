@@ -96,6 +96,10 @@ public class User {
         this.active = active;
     }
 
+    public String getFIO() {
+        return this.surname + " " + this.name + " " + this.patronymic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

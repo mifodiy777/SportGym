@@ -5,9 +5,9 @@ package ru.innopolis.sportgym.entity;
  */
 public class Role {
 
-    Integer id;
+    private Integer id;
 
-    String name;
+    private String name;
 
     public Integer getId() {
         return id;

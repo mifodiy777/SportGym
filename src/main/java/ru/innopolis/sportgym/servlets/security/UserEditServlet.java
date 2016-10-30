@@ -35,6 +35,7 @@ public class UserEditServlet extends HttpServlet {
             resp.setStatus(409);
             out.write("Ошибка!Попробуйте снова!");
         }
+        out.close();
 
 
     }

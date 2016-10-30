@@ -28,6 +28,10 @@
         <servlet-name>editServlet</servlet-name>
         <servlet-class>ru.innopolis.sportgym.servlets.security.UserEditServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loginPage</servlet-name>
+        <servlet-class>ru.innopolis.sportgym.servlets.security.LoginPage</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -54,6 +58,14 @@
         <servlet-name>editServlet</servlet-name>
         <url-pattern>/editProfile</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginPage</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 
     <session-config>

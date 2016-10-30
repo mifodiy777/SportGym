@@ -30,13 +30,12 @@ public class RegistrationUserServlet extends HttpServlet {
         user.setPhone(req.getParameter("phone"));
         user.setPassword(req.getParameter("password"));
         if (service.addUser(user)) {
-            req.getRequestDispatcher("/").forward(req, resp);
+            resp.sendRedirect("/sportgym");
         } else {
             req.setAttribute("errorMsg","Ошибка: Такой пользователь уже существует! Попробуйте снова");
             req.getRequestDispatcher("registration.jsp").forward(req, resp);
 
         }
-
 
     }
 }

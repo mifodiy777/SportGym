@@ -49,8 +49,10 @@ public class UserDAOImpl extends MySQLDAO implements UserDAO {
             preparedStatement.setString(2, password);
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt(1);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

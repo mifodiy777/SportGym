@@ -24,8 +24,6 @@ public class UserEditPageServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         Integer id = Integer.parseInt(req.getParameter("idUser"));
         req.setAttribute("user", service.getUser(id));
-       /* PrintWriter out = resp.getWriter();
-        out.write();*/
         req.getRequestDispatcher("editUser.jsp").forward(req, resp);
 
     }

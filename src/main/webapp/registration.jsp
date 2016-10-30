@@ -99,6 +99,9 @@
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+                            <div class="pull-right">
+                                <a href="javascript:history.back()" class="reg"><span class="glyphicon glyphicon glyphicon-menu-left"></span> Назад</a>
+                            </div>
                         </div>
                     </div>
                 </form>

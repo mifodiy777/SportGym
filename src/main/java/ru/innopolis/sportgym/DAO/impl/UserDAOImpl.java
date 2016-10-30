@@ -1,5 +1,7 @@
 package ru.innopolis.sportgym.DAO.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.innopolis.sportgym.DAO.UserDAO;
 import ru.innopolis.sportgym.entity.User;
 
@@ -12,6 +14,8 @@ import java.sql.SQLException;
  * Created by Кирилл on 29.10.2016.
  */
 public class UserDAOImpl extends MySQLDAO implements UserDAO {
+
+    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 
     private final static String ADD_NEW_USER = "INSERT INTO sportgym.users(surname,name,patronymic,email,phone,password,active) VALUES (?,?,?,?,?,?,?)";
 
@@ -34,8 +38,10 @@ public class UserDAOImpl extends MySQLDAO implements UserDAO {
             preparedStatement.setString(6, user.getPassword());
             preparedStatement.setBoolean(7, user.isActive());
             preparedStatement.execute();
+            logger.info("add user complete");
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("add user error", e);
             return false;
         }
         return true;
@@ -50,11 +56,13 @@ public class UserDAOImpl extends MySQLDAO implements UserDAO {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+                logger.info("check user complete");
                 return resultSet.getInt(1);
             }
             return null;
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("check user error", e);
             return null;
         }
     }
@@ -76,8 +84,10 @@ public class UserDAOImpl extends MySQLDAO implements UserDAO {
             user.setPhone(resultSet.getString("phone"));
             user.setPassword(resultSet.getString("password"));
             user.setActive(resultSet.getBoolean("active"));
+            logger.info("get user complete");
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("get user error", e);
         }
         return user;
     }
@@ -92,9 +102,11 @@ public class UserDAOImpl extends MySQLDAO implements UserDAO {
             preparedStatement.setString(4, user.getPhone());
             preparedStatement.setInt(5, user.getId());
             preparedStatement.execute();
+            logger.info("edit user complete");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("edit user error", e);
             return false;
         }
 

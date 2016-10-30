@@ -12,7 +12,7 @@
     <title>Авторизация</title>
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
-    <script type="text/javascript" src="<c:url value='/js/jquery-3.1.1.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap.min.js'/>"></script>
     <style>
 
@@ -45,28 +45,25 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Войдите</h3>
                 </div>
-
-                <form action="profile">
-                    <div class="panel-body">
+                <div class="panel-body">
+                    <form action="profile" method="get">
+                        <p class="text-danger"><strong>${errorMsg}</strong></p>
                         <div class="form-group">
                             <label class="control-label">Логин: </label>
-                            <input type="text" name="username" class="form-control">
+                            <input type="text" name="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="control-label">Пароль: </label>
                             <input type="password" name="password" class="form-control">
                         </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-primary">Войти</button>
-                                <div class="pull-right">
-                                    <a href="registration" class="reg">Зарегистрироваться</a>
-                                </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary">Войти</button>
+                            <div class="pull-right">
+                                <a href="registration" class="reg">Зарегистрироваться</a>
                             </div>
-
-
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

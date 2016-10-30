@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public class Sportsmen {
 
-    private Long id;
+    private Integer id;
 
     private User user;
 
@@ -20,11 +20,11 @@ public class Sportsmen {
 
     private Set<Training> trainings;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

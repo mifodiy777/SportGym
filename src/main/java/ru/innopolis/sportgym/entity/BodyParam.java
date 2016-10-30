@@ -7,7 +7,7 @@ import java.util.Calendar;
  */
 public class BodyParam {
 
-    private Long id;
+    private Integer id;
 
     private Calendar measurementDate;
 
@@ -21,11 +21,11 @@ public class BodyParam {
 
     private Short forearm;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

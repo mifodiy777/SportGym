@@ -6,8 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
-    <script type="text/javascript" src="<c:url value='/js/jquery-3.1.1.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.form.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.validate.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/localization/validate.messages_ru.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/bootstrap-datepicker.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/sportgym.js'/>"></script>
+
 
     <script type="text/javascript">
 
@@ -62,10 +68,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a>Иванов Иван Иваныч<%--<c:out value="${user.fio}"/>--%></a>
-                    </li>
-                    <li>
-                        <a href="edit-profile" title="Изменить профиль"><span class="glyphicon glyphicon-cog"></span></a>
+                        <a href="#" onclick="editUser(${id})" title="Изменить профиль"><span class="glyphicon glyphicon-cog"></span></a>
                     </li>
                     <li>
                         <a href="logout" title="Выйти">

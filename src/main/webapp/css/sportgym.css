@@ -17,31 +17,27 @@ body {
 
 #error_message {
     text-align: center;
-    color: red;
-    /*font-size: 14pt;
+    color: #ff0066;
+    font-size: 14pt;
     text-align: center;
-    color: red;
-    padding: 10px;*/
-}
-
-.error {
-    color: red;
 }
 
 #success_message {
     text-align: center;
-    color: black;
-    /*font-size: 14pt;
+    color: #3c763d;
+    font-size: 14pt;
     text-align: center;
-    padding: 10px;*/
 }
 
 #messages {
     text-align: center;
     display: block;
     position: fixed;
-    filter: alpha(opacity = 75);
-    z-index: 1100;
+    z-index: 2000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
 }
 
 #logout {

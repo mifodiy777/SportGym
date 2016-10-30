@@ -6,16 +6,30 @@
     <display-name>cooperative</display-name>
     <servlet>
         <servlet-name>loginServlet</servlet-name>
-        <servlet-class>ru.innopolis.sportgym.servlets.LoginServlet</servlet-class>
+        <servlet-class>ru.innopolis.sportgym.servlets.security.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>registrationPage</servlet-name>
-        <servlet-class>ru.innopolis.sportgym.servlets.RegistrationPageServlet</servlet-class>
+        <servlet-class>ru.innopolis.sportgym.servlets.security.RegistrationPageServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>registrationUserServlet</servlet-name>
-        <servlet-class>ru.innopolis.sportgym.servlets.RegistrationUserServlet</servlet-class>
+        <servlet-class>ru.innopolis.sportgym.servlets.security.RegistrationUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>ru.innopolis.sportgym.servlets.security.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editPageServlet</servlet-name>
+        <servlet-class>ru.innopolis.sportgym.servlets.security.UserEditPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editServlet</servlet-name>
+        <servlet-class>ru.innopolis.sportgym.servlets.security.UserEditServlet</servlet-class>
+    </servlet>
+
+
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/profile</url-pattern>
@@ -27,6 +41,18 @@
     <servlet-mapping>
         <servlet-name>registrationUserServlet</servlet-name>
         <url-pattern>/saveProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editPageServlet</servlet-name>
+        <url-pattern>/editUserPage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editServlet</servlet-name>
+        <url-pattern>/editProfile</url-pattern>
     </servlet-mapping>
 
 
@@ -43,6 +69,10 @@
         <location>/403.jsp</location>
     </error-page>
 
-
+    <resource-ref>
+        <res-ref-name>jdbc/dataSource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 
 </web-app>

@@ -7,7 +7,7 @@ import java.util.Calendar;
  */
 public class Training {
 
-    private Long  id;
+    private Integer  id;
 
     private TrainingType type;
 
@@ -29,11 +29,11 @@ public class Training {
 
     private Calendar notificate;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

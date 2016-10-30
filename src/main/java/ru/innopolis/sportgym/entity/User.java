@@ -6,7 +6,7 @@ package ru.innopolis.sportgym.entity;
 
 public class User {
 
-    private Long id;
+    private Integer id;
 
     private String email;
 
@@ -20,15 +20,13 @@ public class User {
 
     private String patronymic;
 
-    private Role roles;
-
     private boolean active;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -80,14 +78,6 @@ public class User {
         this.patronymic = patronymic;
     }
 
-    public Role getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Role roles) {
-        this.roles = roles;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -114,10 +104,8 @@ public class User {
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (patronymic != null ? !patronymic.equals(user.patronymic) : user.patronymic != null) return false;
-        if (roles != null ? !roles.equals(user.roles) : user.roles != null) return false;
+        return patronymic != null ? patronymic.equals(user.patronymic) : user.patronymic == null;
 
-        return true;
     }
 
     @Override
@@ -129,7 +117,6 @@ public class User {
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
         result = 31 * result + (active ? 1 : 0);
         return result;
     }

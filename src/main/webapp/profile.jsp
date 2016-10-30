@@ -13,10 +13,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h1>Личный кабинет</h1>
-        </div>
+    <div id="content">
+
     </div>
 </div>
 </body>

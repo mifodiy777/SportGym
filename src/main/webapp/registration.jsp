@@ -12,8 +12,11 @@
     <title>Регистрация</title>
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
-    <script type="text/javascript" src="<c:url value='/js/jquery-3.1.1.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.validate.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/localization/validate.messages_ru.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/sportgym.js'/>"></script>
     <style>
 
         body {
@@ -36,6 +39,23 @@
         }
 
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+           $("#registrationForm").validate({
+               submitHandler: function(form) {
+                   form.submit();
+               },
+                errorPlacement: function (error, element) {
+                    validPlaceError(error,element);
+                },
+                success: function (label, element) {
+                    validPlaceSuccess(label, element);
+                }
+            });
+
+        })
+    </script>
 </head>
 <body>
 <div class="container">
@@ -46,15 +66,18 @@
                     <h3 class="panel-title">Регистрация</h3>
                 </div>
 
-                <form action="saveProfile" method="post">
+                <form id="registrationForm" action="saveProfile" method="post">
                     <div class="panel-body">
+                        <p class="text-danger"><strong>${errorMsg}</strong></p>
                         <div class="form-group">
                             <label class="control-label">Фамилия: </label>
-                            <input type="text" name="surname" class="form-control">
+                            <input type="text" name="surname" class="form-control required">
+                            <span class="help-block"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Имя: </label>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" class="form-control required">
+                            <span class="help-block"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Отчество: </label>
@@ -62,7 +85,8 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">E-mail: </label>
-                            <input type="email" name="email" class="form-control">
+                            <input type="email" name="email" class="form-control required email">
+                            <span class="help-block"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Телефон: </label>
@@ -70,7 +94,8 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Пароль: </label>
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password" class="form-control required">
+                            <span class="help-block"></span>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Зарегистрироваться</button>

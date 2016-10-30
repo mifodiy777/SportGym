@@ -18,7 +18,7 @@ public class LoginPage extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
         if (session.getAttribute("user") == null) {
-            req.getRequestDispatcher("profile.jsp").forward(req, resp);
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
             req.setAttribute("id", session.getAttribute("user"));
             req.getRequestDispatcher("profile.jsp").forward(req, resp);

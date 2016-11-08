@@ -4,15 +4,23 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="img/ico-logo.ico" type="image/x-icon" />
+    <link rel="icon" href="<c:url value="/img/ico-logo.ico"/>" type="image/x-icon" />
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
+    <link type="text/css" href="<c:url value='/css/bootstrap.dataTable.css'/>" rel="stylesheet"/>
+    <link type="text/css" href="<c:url value='/css/dataTables.bootstrap.css'/>" rel="stylesheet"/>
+    <link type="text/css" href="<c:url value='/css/datepicker.css'/>" rel="stylesheet"/>
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
     <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery.form.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery.validate.min.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/js/localization/validate.messages_ru.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap-datepicker.js'/>"></script>
+     <script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/dataTables.bootstrap.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/validate.customMethod.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/localization/validate.messages_ru.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/localization/bootstrap-datepicker.ru.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/localization/dataTablesRu.json'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/sportgym.js'/>"></script>
 
 

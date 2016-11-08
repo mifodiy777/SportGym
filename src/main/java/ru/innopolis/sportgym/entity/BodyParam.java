@@ -1,24 +1,43 @@
 package ru.innopolis.sportgym.entity;
 
+import javax.persistence.*;
 import java.util.Calendar;
 
 /**
+ * Класс описывающий физиологические параметры
  * Created by Кирилл on 24.10.2016.
  */
+@Entity
+@Table(name = "body_param")
 public class BodyParam {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    //Дата измерения
+    @Column(name = "measurement_date")
     private Calendar measurementDate;
 
+    //Вес /кг
+    @Column(name = "weight")
     private Short weight;
 
+    //Рост /см
+    @Column(name = "height")
     private Short height;
 
+    //Окружность груди /см
+    @Column(name = "body")
     private Short body;
 
+    //Окружность бедра /см
+    @Column(name = "haunch")
     private Short haunch;
 
+    //Окружность предплечья
+    @Column(name = "forearm")
     private Short forearm;
 
     public Integer getId() {

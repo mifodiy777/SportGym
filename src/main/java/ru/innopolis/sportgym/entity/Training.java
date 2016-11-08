@@ -1,32 +1,60 @@
 package ru.innopolis.sportgym.entity;
 
+import javax.persistence.*;
 import java.util.Calendar;
 
 /**
+ * Класс описывающий тренировки
  * Created by Кирилл on 24.10.2016.
  */
+@Entity
+@Table(name = "training")
 public class Training {
 
-    private Integer  id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
 
+    // Тип тренировки
+    @ManyToOne
+    @JoinColumn(name = "id_type")
     private TrainingType type;
 
+    // Время начала проведения
+    @Column(name = "from_date")
     private Calendar fromDate;
 
+    // Время окончания проыедения
+    @Column(name = "to_date")
     private Calendar toDate;
 
+    // Пройденная дистанция или цель
+    @Column(name = "distance")
     private Short distance;
 
+    // Время тренировки / Временная цель
+    @Column(name = "time")
     private Short time;
 
+    // Количество / Цель
+    @Column(name = "count")
     private Short count;
 
+    // Количество подходов/ Цель
+    @Column(name = "attempt")
     private Short attempt;
 
+    // Вес / Цель
+    @Column(name = "weight")
     private Short weight;
 
+    // Флаг выполнения
+    @Column(name = "complete")
     private Boolean complete;
 
+    //Дата/время напоминания(Будильник)
+    @Column(name = "notificate")
     private Calendar notificate;
 
     public Integer getId() {

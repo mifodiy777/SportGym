@@ -1,16 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: velievvm
-  Date: 16.07.15
-  Time: 19:47
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <html>
 <head>
     <title>Регистрация</title>
-    <link rel="icon" href="img/ico-logo.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/ico-logo.ico" type="image/x-icon" />
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
     <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>

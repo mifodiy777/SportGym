@@ -1,19 +1,14 @@
 package ru.innopolis.sportgym.DAO;
 
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import ru.innopolis.sportgym.entity.User;
 
-/**
- * Created by Кирилл on 29.10.2016.
- */
-public interface UserDAO {
+import java.sql.SQLException;
 
-    boolean addUser(User user);
+@Repository
+public interface UserDAO extends CrudRepository<User, Integer> {
 
-    boolean deleteUser(Integer id);
-
-    User getUser(Integer id);
-
-    boolean editUser(User user);
-
-    Integer checkPermission(String login, String password);
+    // Получение пользователя по логину(e-mail)
+    User findByLogin(String login) throws SQLException;
 }

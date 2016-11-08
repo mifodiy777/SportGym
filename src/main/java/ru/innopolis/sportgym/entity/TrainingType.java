@@ -1,22 +1,44 @@
 package ru.innopolis.sportgym.entity;
 
+import javax.persistence.*;
+
 /**
+ * Класс описывающий типы тренировок
  * Created by Кирилл on 24.10.2016.
  */
+@Entity
+@Table(name = "training")
 public class TrainingType {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    //Наименование тренировок
+    @Column(name = "name")
     private String name;
 
+    /* ----Флаги описывающий в чем и как будет измерятся данный тип тренировок----*/
+
+    //Флаг дистанции
+    @Column(name = "distance")
     private Boolean distance;
 
+    //Флаг - время
+    @Column(name = "time")
     private Boolean time;
 
+    //Флаг - количество
+    @Column(name = "count")
     private Boolean count;
 
+    //Флаг - попытки
+    @Column(name = "attempt")
     private Boolean attempt;
 
+    //Флаг - вес
+    @Column(name = "weight")
     private Boolean weight;
 
     public Integer getId() {

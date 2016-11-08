@@ -1,16 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: velievvm
-  Date: 16.07.15
-  Time: 19:47
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <html>
 <head>
     <title>Авторизация</title>
-    <link rel="icon" href="img/ico-logo.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/ico-logo.ico" type="image/x-icon" />
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
     <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
@@ -39,32 +32,39 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div id="login-box" class="container">
     <div class="row vertical-offset-100">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-primary">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Войдите</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="profile" method="post">
-                        <p class="text-danger"><strong>${errorMsg}</strong></p>
-                        <div class="form-group">
-                            <label class="control-label">Логин: </label>
-                            <input type="text" name="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Пароль: </label>
-                            <input type="password" name="password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary">Войти</button>
-                            <div class="pull-right">
-                                <a href="registration" class="reg">Зарегистрироваться</a>
+                    <form accept-charset="UTF-8" role="form" id='loginForm' name='loginForm'
+                          action="<c:url value='/j_spring_security_check' />" method='POST'>
+                        <fieldset>
+                            <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
+                                <input class="form-control" placeholder="E-mail" name="username" type="email">
                             </div>
-                        </div>
+                            <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
+                                <input class="form-control" placeholder="Пароль" name="password" type="password"
+                                       value="" required="">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Войти</button>
+                            <button type="reset" class="btn btn-default btn-block">Сбросить</button>
+                        </fieldset>
                     </form>
                 </div>
+                <c:if test="${not empty error}">
+                    <div class="panel-footer">
+                        <div id="loginError">${error}</div>
+                    </div>
+                </c:if>
+                <c:if test="${not empty msg}">
+                    <div class="panel-footer">
+                        <div id="loginMsg">${msg}</div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

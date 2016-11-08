@@ -1,8 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: velievvm
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">

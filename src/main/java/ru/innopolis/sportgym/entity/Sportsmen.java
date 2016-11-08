@@ -1,23 +1,34 @@
 package ru.innopolis.sportgym.entity;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 /**
+ * Класс описывающий спортсмена
  * Created by Кирилл on 17.10.2016.
  */
+@Entity
+@Table(name = "sportsmen")
 public class Sportsmen {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
-    private User user;
-
-    private Gender gender;
-
+    /*Список измерений физиологических параметров
+      Используется для построения графиков*/
+    @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("measurementDate DESC ")
     private Set<BodyParam> bodyParams;
 
+    //Список типов тренировок проводимых данным спортсменом
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<TrainingType> trainingTypes;
 
+    //Список тренировок
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Training> trainings;
 
     public Integer getId() {
@@ -26,22 +37,6 @@ public class Sportsmen {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public Set<BodyParam> getBodyParams() {
@@ -76,8 +71,6 @@ public class Sportsmen {
         Sportsmen sportsmen = (Sportsmen) o;
 
         if (id != null ? !id.equals(sportsmen.id) : sportsmen.id != null) return false;
-        if (user != null ? !user.equals(sportsmen.user) : sportsmen.user != null) return false;
-        if (gender != sportsmen.gender) return false;
         if (bodyParams != null ? !bodyParams.equals(sportsmen.bodyParams) : sportsmen.bodyParams != null) return false;
         if (trainingTypes != null ? !trainingTypes.equals(sportsmen.trainingTypes) : sportsmen.trainingTypes != null)
             return false;
@@ -88,8 +81,6 @@ public class Sportsmen {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (bodyParams != null ? bodyParams.hashCode() : 0);
         result = 31 * result + (trainingTypes != null ? trainingTypes.hashCode() : 0);
         result = 31 * result + (trainings != null ? trainings.hashCode() : 0);

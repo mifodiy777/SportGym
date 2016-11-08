@@ -44,7 +44,7 @@
                           action="<c:url value='/j_spring_security_check' />" method='POST'>
                         <fieldset>
                             <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
-                                <input class="form-control" placeholder="E-mail" name="username" type="email">
+                                <input class="form-control" placeholder="E-mail" name="email" type="email">
                             </div>
                             <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
                                 <input class="form-control" placeholder="Пароль" name="password" type="password"

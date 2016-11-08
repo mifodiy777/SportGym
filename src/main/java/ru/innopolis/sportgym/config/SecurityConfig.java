@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем URL при неудачном логине
                 .failureUrl("/login?error")
                 // Указываем параметры логина и пароля с формы логина
-                .usernameParameter("username")
+                .usernameParameter("email")
                 .passwordParameter("password")
                 // даем доступ к форме логина всем
                 .permitAll();

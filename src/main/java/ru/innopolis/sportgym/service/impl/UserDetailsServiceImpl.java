@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ru.innopolis.sportgym.entity.User user = null;
         try {
-            user = userDAO.findByLogin(username.trim());
+            user = userDAO.findByEmail(username.trim());
         } catch (SQLException e) {
            logger.error(e.getMessage(),e);
         }

@@ -10,5 +10,5 @@ import java.sql.SQLException;
 public interface UserDAO extends CrudRepository<User, Integer> {
 
     // Получение пользователя по логину(e-mail)
-    User findByLogin(String login) throws SQLException;
+    User findByEmail(String email) throws SQLException;
 }

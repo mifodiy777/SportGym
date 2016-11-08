@@ -1,9 +1,15 @@
 group 'ru.innopolis'
 version '0.0.2'
 
-apply plugin: 'java'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
 repositories {
     mavenCentral()

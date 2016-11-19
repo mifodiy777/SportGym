@@ -57,6 +57,10 @@ public class Training {
     @Column(name = "notificate")
     private Calendar notificate;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     public Integer getId() {
         return id;
     }
@@ -143,6 +147,14 @@ public class Training {
 
     public void setNotificate(Calendar notificate) {
         this.notificate = notificate;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override

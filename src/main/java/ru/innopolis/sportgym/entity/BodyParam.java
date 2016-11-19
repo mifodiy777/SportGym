@@ -40,6 +40,10 @@ public class BodyParam {
     @Column(name = "forearm")
     private Short forearm;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     public Integer getId() {
         return id;
     }
@@ -94,6 +98,14 @@ public class BodyParam {
 
     public void setForearm(Short forearm) {
         this.forearm = forearm;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override

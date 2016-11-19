@@ -31,6 +31,10 @@ public class Sportsmen {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Training> trainings;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     public Integer getId() {
         return id;
     }
@@ -61,6 +65,14 @@ public class Sportsmen {
 
     public void setTrainings(Set<Training> trainings) {
         this.trainings = trainings;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override

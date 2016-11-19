@@ -35,15 +35,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             user = userDAO.findByEmail(username.trim());
         } catch (SQLException e) {
-           logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         if (user == null) {
             throw new UsernameNotFoundException("Пользователь с таким логином не найден");
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
         String fio = user.getSurname() + " " + user.getName();
         User securityUser = new User(fio.trim(), user.getPassword(), true, true, true, true, authorities);
 

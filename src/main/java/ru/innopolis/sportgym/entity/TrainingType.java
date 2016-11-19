@@ -41,6 +41,10 @@ public class TrainingType {
     @Column(name = "weight")
     private Boolean weight;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     public Integer getId() {
         return id;
     }
@@ -95,6 +99,14 @@ public class TrainingType {
 
     public void setWeight(Boolean weight) {
         this.weight = weight;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override

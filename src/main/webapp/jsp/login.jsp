@@ -44,14 +44,17 @@
                           action="<c:url value='/j_spring_security_check' />" method='POST'>
                         <fieldset>
                             <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
+                                <label class="control-label">E-mail</label>
                                 <input class="form-control" placeholder="E-mail" name="email" type="email">
                             </div>
                             <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
+                                <label class="control-label">Пароль</label>
                                 <input class="form-control" placeholder="Пароль" name="password" type="password"
                                        value="" required="">
                             </div>
                             <button type="submit" class="btn btn-success btn-block">Войти</button>
                             <button type="reset" class="btn btn-default btn-block">Сбросить</button>
+                            <a href="registration" class="btn btn-primary btn-block">Зарегистрироваться</a>
                         </fieldset>
                     </form>
                 </div>

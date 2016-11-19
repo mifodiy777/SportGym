@@ -9,11 +9,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DataSQLException extends Exception {
 
-    private static Logger logger = LoggerFactory.getLogger(DataSQLException.class);
-
-
     public DataSQLException(String message) {
         super(message);
-        logger.error(message, this);
     }
 }

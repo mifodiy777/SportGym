@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Регистрация</title>
-    <link rel="icon" href="../img/ico-logo.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/ico-logo.ico" type="image/x-icon"/>
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
     <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
@@ -36,12 +36,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-           $("#registrationForm").validate({
-               submitHandler: function(form) {
-                   form.submit();
-               },
+            $("#registrationForm").validate({
+                submitHandler: function (form) {
+                    form.submit();
+                },
                 errorPlacement: function (error, element) {
-                    validPlaceError(error,element);
+                    validPlaceError(error, element);
                 },
                 success: function (label, element) {
                     validPlaceSuccess(label, element);
@@ -78,6 +78,13 @@
                             <input type="text" name="patronymic" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label class="control-label">Пол: </label>
+                            <select name="gender" class="form-control">
+                                <option value="M">Мужской</option>
+                                <option value="W">Женский</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">E-mail: </label>
                             <input type="email" name="email" class="form-control required email">
                             <span class="help-block"></span>
@@ -91,10 +98,12 @@
                             <input type="password" name="password" class="form-control required">
                             <span class="help-block"></span>
                         </div>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Зарегистрироваться</button>
                             <div class="pull-right">
-                                <a href="javascript:history.back()" class="reg"><span class="glyphicon glyphicon glyphicon-menu-left"></span> Назад</a>
+                                <a href="javascript:history.back()" class="reg"><span
+                                        class="glyphicon glyphicon glyphicon-menu-left"></span> Назад</a>
                             </div>
                         </div>
                     </div>

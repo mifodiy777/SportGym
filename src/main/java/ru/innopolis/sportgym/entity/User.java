@@ -38,7 +38,7 @@ public class User {
     private String patronymic;
 
     //Пользователь
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_sportsmen")
     private Sportsmen sportsmen;
 
@@ -46,14 +46,17 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private List<Role> roles;
+    @OneToOne
+    @JoinColumn(name = "id_role")
+    private Role role;
 
     //Актиность пользователя
     @Column(name = "active")
     private boolean active;
+
+    @Version
+    @Column(name = "version")
+    private Long version;
 
     public User() {
     }
@@ -122,12 +125,12 @@ public class User {
         this.gender = gender;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean isActive() {
@@ -136,6 +139,15 @@ public class User {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override
@@ -154,8 +166,10 @@ public class User {
         if (patronymic != null ? !patronymic.equals(user.patronymic) : user.patronymic != null) return false;
         if (sportsmen != null ? !sportsmen.equals(user.sportsmen) : user.sportsmen != null) return false;
         if (gender != null ? !gender.equals(user.gender) : user.gender != null) return false;
-        return roles != null ? roles.equals(user.roles) : user.roles == null;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        if (version != null ? !version.equals(user.version) : user.version != null) return false;
 
+        return true;
     }
 
     @Override
@@ -168,8 +182,9 @@ public class User {
         result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
         result = 31 * result + (sportsmen != null ? sportsmen.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (active ? 1 : 0);
+        result = 31 * result + (version != null ? version.hashCode() : 0);
         return result;
     }
 }

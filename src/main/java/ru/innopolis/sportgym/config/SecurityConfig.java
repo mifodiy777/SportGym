@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/saveProfile").permitAll()
-                .antMatchers("/images/**").permitAll()
+                .antMatchers("/img/**").permitAll()
                 .antMatchers("/fonts/**").permitAll()
                 //Доступ имеет только пользователь с ролю ROLE_USER
                 .antMatchers("/**").hasAnyRole("USER")

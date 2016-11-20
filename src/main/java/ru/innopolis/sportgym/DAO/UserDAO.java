@@ -11,4 +11,5 @@ public interface UserDAO extends CrudRepository<User, Integer> {
 
     // Получение пользователя по логину(e-mail)
     User findByEmail(String email) throws SQLException;
+
 }

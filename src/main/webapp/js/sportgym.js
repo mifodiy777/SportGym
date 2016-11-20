@@ -24,5 +24,86 @@ function showErrorMessage(html) {
 }
 
 function editUser(id) {
-    $("#content").empty().load("editUserPage?idUser=" + id);
+    $.get("editUserPage/" + id, function (html) {
+        $("#profileForm").html(html);
+    }).fail(function (xhr) {
+        if (xhr.status == 409) {
+            showErrorMessage(xhr.responseText);
+        }
+    })
 }
+
+function addBodyParam() {
+    $.get("bodyParamForm", function (html) {
+        $("#formPanel").html(html).show();
+        $(".addBtn").hide();
+    })
+}
+
+function addTrainigType() {
+    $.get("trainigTypeForm", function (html) {
+        $("#formPanel").html(html).show();
+        $(".addBtn").hide();
+    })
+}
+
+function addTraining() {
+    $.get("trainigForm", function (html) {
+        $("#formPanel").html(html).show();
+        $(".addBtn").hide();
+    }).fail(function (xhr) {
+        if (xhr.status == 409) {
+            showErrorMessage(xhr.responseText);
+        }
+    })
+}
+
+function editParam(id) {
+    $.get("bodyParamForm/" + id, function (html) {
+        $("#formPanel").html(html).show();
+        $(".addBtn").hide();
+    }).fail(function (xhr) {
+        if (xhr.status == 409) {
+            showErrorMessage(xhr.responseText);
+        }
+    })
+}
+
+function deleteParam(id) {
+    $.ajax({
+        url: "deleteBodyParam/" + id,
+        type: "post",
+        success: function (html) {
+            showSuccessMessage(html);
+            $('#bodyParamTable').DataTable().ajax.reload(null, false);
+        },
+        error: function (xhr) {
+            if (xhr.status == 409) {
+                showErrorMessage(xhr.responseText);
+            }
+        }
+    });
+}
+
+function deleteTrainingType(id) {
+    $.ajax({
+        url: "deleteTrainingType/" + id,
+        type: "post",
+        success: function (html) {
+            showSuccessMessage(html);
+            $('#trainingTypeTable').DataTable().ajax.reload(null, false);
+        },
+        error: function (xhr) {
+            if (xhr.status == 409) {
+                showErrorMessage(xhr.responseText);
+            }
+        }
+    });
+}
+
+function closeForm() {
+    $("#formPanel").hide();
+    $(".addBtn").show();
+
+}
+

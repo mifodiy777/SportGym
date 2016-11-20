@@ -16,8 +16,8 @@
         }
 
         .center-block {
-            margin-top:15%;
-            cursor:pointer;
+            margin-top: 15%;
+            cursor: pointer;
         }
 
     </style>
@@ -25,12 +25,12 @@
 
 
 <body>
-<div id="wrap">
-    <div class="container">
+<div class="container">
 
-        <img class="center-block" src="<c:url value="/img/404_end.png"/>" alt="Ошибка 404"
-             onclick="window.history.back();">
+    <img class="center-block" src="<c:url value="/img/404_end.png"/>" alt="Ошибка 404"
+         onclick="window.history.back();">
 
 
-    </div>
-    <jsp:include page="footer.jsp"/>
+</div>
+<jsp:include page="footer.jsp"/>
+</body>

@@ -1,6 +1,7 @@
 package ru.innopolis.sportgym.entity;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class User {
     private Integer id;
 
     //Логин
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, updatable = false)
     private String email;
 
     //Пароль
@@ -37,14 +38,15 @@ public class User {
     @Column(name = "patronymic")
     private String patronymic;
 
-    //Пользователь
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_sportsmen")
-    private Sportsmen sportsmen;
+    @Column(name = "birthday")
+    private Calendar birthday;
 
     //Пол
     @Column(name = "gender")
     private String gender;
+
+    @Column(name = "phone")
+    private String phone;
 
     @OneToOne
     @JoinColumn(name = "id_role")
@@ -109,12 +111,20 @@ public class User {
         this.patronymic = patronymic;
     }
 
-    public Sportsmen getSportsmen() {
-        return sportsmen;
+    public Calendar getBirthday() {
+        return birthday;
     }
 
-    public void setSportsmen(Sportsmen sportsmen) {
-        this.sportsmen = sportsmen;
+    public void setBirthday(Calendar birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getGender() {
@@ -141,7 +151,6 @@ public class User {
         this.active = active;
     }
 
-
     public Long getVersion() {
         return version;
     }
@@ -157,34 +166,15 @@ public class User {
 
         User user = (User) o;
 
-        if (active != user.active) return false;
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (patronymic != null ? !patronymic.equals(user.patronymic) : user.patronymic != null) return false;
-        if (sportsmen != null ? !sportsmen.equals(user.sportsmen) : user.sportsmen != null) return false;
-        if (gender != null ? !gender.equals(user.gender) : user.gender != null) return false;
-        if (role != null ? !role.equals(user.role) : user.role != null) return false;
-        if (version != null ? !version.equals(user.version) : user.version != null) return false;
+        return email != null ? email.equals(user.email) : user.email == null;
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
-        result = 31 * result + (sportsmen != null ? sportsmen.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        result = 31 * result + (active ? 1 : 0);
-        result = 31 * result + (version != null ? version.hashCode() : 0);
         return result;
     }
 }

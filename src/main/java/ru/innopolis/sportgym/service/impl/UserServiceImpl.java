@@ -1,17 +1,17 @@
 package ru.innopolis.sportgym.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.innopolis.sportgym.DAO.RoleDAO;
 import ru.innopolis.sportgym.DAO.UserDAO;
 import ru.innopolis.sportgym.entity.Role;
-import ru.innopolis.sportgym.entity.Sportsmen;
 import ru.innopolis.sportgym.entity.User;
 import ru.innopolis.sportgym.exception.DataSQLException;
 import ru.innopolis.sportgym.service.UserService;
+
+import java.sql.SQLException;
 
 /**
  * Created by Кирилл on 19.11.2016.
@@ -19,11 +19,11 @@ import ru.innopolis.sportgym.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
-    private RoleDAO roleDAO;
+    private final RoleDAO roleDAO;
 
-    private BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserDAO userDAO, RoleDAO roleDAO, BCryptPasswordEncoder passwordEncoder) {
@@ -35,20 +35,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveProfile(User user) throws DataSQLException {
-        user.setSportsmen(new Sportsmen());
-        user.setActive(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        for (Role role : roleDAO.findAll()) {
-            if (role.getName().equals("ROLE_USER")) {
-               user.setRole(role);
+        if (user.getId() == null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setActive(true);
+            for (Role role : roleDAO.findAll()) {
+                if (role.getName().equals("ROLE_USER")) {
+                    user.setRole(role);
+                }
             }
         }
         try {
             return userDAO.save(user);
         } catch (DataIntegrityViolationException e) {
-            throw new DataSQLException("Ошибка сохранения нового пользователя");
+            throw new DataSQLException("Ошибка сохранения пользователя");
         }
+    }
 
+    @Override
+    public User findByLogin(String login) throws DataSQLException {
+        try {
+            return userDAO.findByEmail(login);
+        } catch (SQLException e) {
+            throw new DataSQLException("Ощибка получения данных из базы");
+        }
+    }
+
+    @Override
+    public User getUser(Integer id) throws DataSQLException {
+        try {
+            return userDAO.findOne(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataSQLException("Ощибка получения данных из базы");
+        }
 
     }
 }

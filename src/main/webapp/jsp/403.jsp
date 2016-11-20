@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-
+<body>
 
 <div class="container">
     <div class="vertical-and-horizontal-offset">
@@ -30,6 +30,6 @@
     </div>
 </div>
 
-
+</body>
 
 

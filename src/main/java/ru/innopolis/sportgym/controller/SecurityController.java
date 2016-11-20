@@ -1,22 +1,17 @@
 package ru.innopolis.sportgym.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.innopolis.sportgym.editor.DateCustomEditor;
-import ru.innopolis.sportgym.entity.User;
 import ru.innopolis.sportgym.exception.DataSQLException;
 import ru.innopolis.sportgym.service.UserService;
 
-import java.util.Date;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Кирилл on 02.11.2016.
@@ -24,18 +19,11 @@ import java.util.Date;
 @Controller
 public class SecurityController {
 
-    private static Logger logger = LoggerFactory.getLogger(SecurityController.class);
-
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
-    public SecurityController(UserService service) {
-        this.userService = service;
-    }
-
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class, new DateCustomEditor());
+    public SecurityController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -44,37 +32,15 @@ public class SecurityController {
      * @return стартовая страница
      */
     @RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
-    public String start() {
+    public String start(HttpSession session) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            session.setAttribute("userCurrent", userService.findByLogin(user.getUsername()));
+        } catch (DataSQLException e) {
+            e.printStackTrace();
+        }
         return "index";
     }
-
-    /**
-     * Страница регистрации
-     *
-     * @return Страница регистрации
-     */
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
-    public String registration() {
-        return "registration";
-    }
-
-    /**
-     * Сохранение нового пользователя
-     *
-     * @return переход на страницу авторизации
-     */
-    @RequestMapping(value = {"/saveProfile"}, method = RequestMethod.POST)
-    public String saveProfile(User user, ModelMap map) {
-        try {
-            userService.saveProfile(user);
-            return "redirect:login";
-        } catch (DataSQLException e) {
-            map.addAttribute("Ошибка: Такой пользователь уже существует! Попробуйте снова");
-            logger.error("Пользователь не  сохранен", e);
-            return "registration";
-        }
-    }
-
 
     /**
      * Форма авторизации

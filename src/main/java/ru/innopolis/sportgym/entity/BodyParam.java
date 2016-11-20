@@ -16,6 +16,10 @@ public class BodyParam {
     @Column(name = "id")
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
     //Дата измерения
     @Column(name = "measurement_date")
     private Calendar measurementDate;
@@ -50,6 +54,14 @@ public class BodyParam {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Calendar getMeasurementDate() {
@@ -116,25 +128,16 @@ public class BodyParam {
         BodyParam bodyParam = (BodyParam) o;
 
         if (id != null ? !id.equals(bodyParam.id) : bodyParam.id != null) return false;
-        if (measurementDate != null ? !measurementDate.equals(bodyParam.measurementDate) : bodyParam.measurementDate != null)
-            return false;
-        if (weight != null ? !weight.equals(bodyParam.weight) : bodyParam.weight != null) return false;
-        if (height != null ? !height.equals(bodyParam.height) : bodyParam.height != null) return false;
-        if (body != null ? !body.equals(bodyParam.body) : bodyParam.body != null) return false;
-        if (haunch != null ? !haunch.equals(bodyParam.haunch) : bodyParam.haunch != null) return false;
-        return forearm != null ? forearm.equals(bodyParam.forearm) : bodyParam.forearm == null;
+        if (user != null ? !user.equals(bodyParam.user) : bodyParam.user != null) return false;
+        return measurementDate != null ? measurementDate.equals(bodyParam.measurementDate) : bodyParam.measurementDate == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (measurementDate != null ? measurementDate.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
-        result = 31 * result + (height != null ? height.hashCode() : 0);
-        result = 31 * result + (body != null ? body.hashCode() : 0);
-        result = 31 * result + (haunch != null ? haunch.hashCode() : 0);
-        result = 31 * result + (forearm != null ? forearm.hashCode() : 0);
         return result;
     }
 }

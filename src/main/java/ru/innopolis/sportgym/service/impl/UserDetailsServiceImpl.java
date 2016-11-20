@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import ru.innopolis.sportgym.DAO.UserDAO;
 import ru.innopolis.sportgym.entity.Role;
 
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,9 +43,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-        String fio = user.getSurname() + " " + user.getName();
-        User securityUser = new User(fio.trim(), user.getPassword(), true, true, true, true, authorities);
-
+        User securityUser = new User(username, user.getPassword(), true, true, true, true, authorities);
         return securityUser;
     }
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Created by Кирилл on 24.10.2016.
  */
 @Entity
-@Table(name = "training")
+@Table(name = "training_type")
 public class TrainingType {
 
     @Id
@@ -18,6 +18,10 @@ public class TrainingType {
     //Наименование тренировок
     @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
     /* ----Флаги описывающий в чем и как будет измерятся данный тип тренировок----*/
 
@@ -59,6 +63,14 @@ public class TrainingType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Boolean getDistance() {
@@ -118,11 +130,7 @@ public class TrainingType {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (distance != null ? !distance.equals(that.distance) : that.distance != null) return false;
-        if (time != null ? !time.equals(that.time) : that.time != null) return false;
-        if (count != null ? !count.equals(that.count) : that.count != null) return false;
-        if (attempt != null ? !attempt.equals(that.attempt) : that.attempt != null) return false;
-        return weight != null ? weight.equals(that.weight) : that.weight == null;
+        return user != null ? user.equals(that.user) : that.user == null;
 
     }
 
@@ -130,11 +138,7 @@ public class TrainingType {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (distance != null ? distance.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
-        result = 31 * result + (count != null ? count.hashCode() : 0);
-        result = 31 * result + (attempt != null ? attempt.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 }

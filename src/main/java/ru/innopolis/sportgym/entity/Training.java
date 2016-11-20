@@ -16,38 +16,40 @@ public class Training {
     @Column(name = "id")
     private Integer id;
 
+    //Пользователь
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
     // Тип тренировки
     @ManyToOne
     @JoinColumn(name = "id_type")
     private TrainingType type;
 
-    // Время начала проведения
-    @Column(name = "from_date")
-    private Calendar fromDate;
+    // Время проведения
+    @Column(name = "target_date")
+    private Calendar targetDate;
 
-    // Время окончания проыедения
-    @Column(name = "to_date")
-    private Calendar toDate;
 
     // Пройденная дистанция или цель
     @Column(name = "distance")
-    private Short distance;
+    private Integer distance;
 
     // Время тренировки / Временная цель
     @Column(name = "time")
-    private Short time;
+    private Integer time;
 
     // Количество / Цель
     @Column(name = "count")
-    private Short count;
+    private Integer count;
 
     // Количество подходов/ Цель
     @Column(name = "attempt")
-    private Short attempt;
+    private Integer attempt;
 
     // Вес / Цель
     @Column(name = "weight")
-    private Short weight;
+    private Integer weight;
 
     // Флаг выполнения
     @Column(name = "complete")
@@ -77,59 +79,59 @@ public class Training {
         this.type = type;
     }
 
-    public Calendar getFromDate() {
-        return fromDate;
+    public User getUser() {
+        return user;
     }
 
-    public void setFromDate(Calendar fromDate) {
-        this.fromDate = fromDate;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Calendar getToDate() {
-        return toDate;
+    public Calendar getTargetDate() {
+        return targetDate;
     }
 
-    public void setToDate(Calendar toDate) {
-        this.toDate = toDate;
+    public void setTargetDate(Calendar targetDate) {
+        this.targetDate = targetDate;
     }
 
-    public Short getDistance() {
+    public Integer getDistance() {
         return distance;
     }
 
-    public void setDistance(Short distance) {
+    public void setDistance(Integer distance) {
         this.distance = distance;
     }
 
-    public Short getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Short time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 
-    public Short getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Short count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
-    public Short getAttempt() {
+    public Integer getAttempt() {
         return attempt;
     }
 
-    public void setAttempt(Short attempt) {
+    public void setAttempt(Integer attempt) {
         this.attempt = attempt;
     }
 
-    public Short getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Short weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -165,32 +167,16 @@ public class Training {
         Training training = (Training) o;
 
         if (id != null ? !id.equals(training.id) : training.id != null) return false;
-        if (type != null ? !type.equals(training.type) : training.type != null) return false;
-        if (fromDate != null ? !fromDate.equals(training.fromDate) : training.fromDate != null) return false;
-        if (toDate != null ? !toDate.equals(training.toDate) : training.toDate != null) return false;
-        if (distance != null ? !distance.equals(training.distance) : training.distance != null) return false;
-        if (time != null ? !time.equals(training.time) : training.time != null) return false;
-        if (count != null ? !count.equals(training.count) : training.count != null) return false;
-        if (attempt != null ? !attempt.equals(training.attempt) : training.attempt != null) return false;
-        if (weight != null ? !weight.equals(training.weight) : training.weight != null) return false;
-        if (complete != null ? !complete.equals(training.complete) : training.complete != null) return false;
-        return notificate != null ? notificate.equals(training.notificate) : training.notificate == null;
+        if (user != null ? !user.equals(training.user) : training.user != null) return false;
+        return type != null ? type.equals(training.type) : training.type == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (fromDate != null ? fromDate.hashCode() : 0);
-        result = 31 * result + (toDate != null ? toDate.hashCode() : 0);
-        result = 31 * result + (distance != null ? distance.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
-        result = 31 * result + (count != null ? count.hashCode() : 0);
-        result = 31 * result + (attempt != null ? attempt.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
-        result = 31 * result + (complete != null ? complete.hashCode() : 0);
-        result = 31 * result + (notificate != null ? notificate.hashCode() : 0);
         return result;
     }
 }

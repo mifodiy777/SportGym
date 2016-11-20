@@ -10,4 +10,8 @@ public interface UserService {
 
     User saveProfile(User user) throws DataSQLException;
 
+    User findByLogin(String login) throws DataSQLException;
+
+    User getUser(Integer id) throws DataSQLException;
+
 }

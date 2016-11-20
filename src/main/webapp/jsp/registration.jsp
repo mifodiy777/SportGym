@@ -8,6 +8,8 @@
     <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
     <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/bootstrap-datepicker.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/localization/bootstrap-datepicker.ru.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery.validate.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/localization/validate.messages_ru.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/sportgym.js'/>"></script>
@@ -35,6 +37,15 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $(".datepicker").datepicker({
+                autoclose: true,
+                format: "dd.mm.yyyy",
+                language: 'ru',
+                todayBtn: true
+            }).on('changeDate', function (ev) {
+                $(this).valid();
+            });
 
             $("#registrationForm").validate({
                 submitHandler: function (form) {
@@ -83,6 +94,10 @@
                                 <option value="M">Мужской</option>
                                 <option value="W">Женский</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Дата рождения: </label>
+                            <input type="text" name="birthday" class="required datepicker form-control">
                         </div>
                         <div class="form-group">
                             <label class="control-label">E-mail: </label>

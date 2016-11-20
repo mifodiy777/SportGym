@@ -8,10 +8,21 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
 }
 
+#scrollUp {
+    background-image: url("../img/top.png");
+    bottom: 20px;
+    right: 10px;
+    width: 38px; /* Width of image */
+    height: 38px; /* Height of image */
+}
 
-.reg{
+.reg {
     display: block;
     margin-top: 10px;
+}
+
+.table{
+    text-align: center;
 }
 
 #error_message {
@@ -137,8 +148,7 @@ body {
     border-bottom-color: #ffffff;
 }
 
-@media(max-width:767px)
-{
+@media (max-width: 767px) {
     .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
         color: #ffffff;
     }
@@ -164,6 +174,7 @@ body {
     }
 
 }
+
 .navbar-custom .navbar-link {
     color: #ffffff;
 }
@@ -172,7 +183,32 @@ body {
     color: #1f2542;
 }
 
-.logo-img{
+.logo-img {
     height: 50px;
     margin-top: -15px;
+}
+
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] ~ .btn-group > label span {
+    width: 20px;
+    height: 20px;
+}
+
+.form-group input[type="checkbox"] ~ .btn-group > label span:first-child {
+    display: none;
+}
+
+.form-group input[type="checkbox"] ~ .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked ~ .btn-group > label span:first-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked ~ .btn-group > label span:last-child {
+    display: none;
 }

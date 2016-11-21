@@ -17,7 +17,8 @@
             autoclose: true,
             format: "dd.mm.yyyy",
             language: 'ru',
-            todayBtn: true
+            todayBtn: true,
+            endDate:"0d"
         }).on('changeDate', function (ev) {
             $(this).valid();
         });
@@ -90,7 +91,8 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Дата рождения: </label>
-                        <form:input path="birthday" id="birthday" cssClass="required datepicker form-control"/>
+                        <form:input path="birthday" id="birthday" cssClass="required datepicker dateRU form-control"/>
+                        <span class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Телефон: </label>

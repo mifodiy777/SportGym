@@ -53,35 +53,35 @@
                 <c:if test="${trainig.type.distance}">
                     <div class="form-group">
                         <label class="control-label">Дистанция: </label>
-                        <form:input path="distance" id="distance" cssClass="required form-control"/>
+                        <form:input path="distance" id="distance" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
                 <c:if test="${trainig.type.time}">
                     <div class="form-group">
                         <label class="control-label">Время: </label>
-                        <form:input path="time" id="time" cssClass="required form-control"/>
+                        <form:input path="time" id="time" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
                 <c:if test="${trainig.type.count}">
                     <div class="form-group">
                         <label class="control-label">Количество: </label>
-                        <form:input path="count" id="count" cssClass="required form-control"/>
+                        <form:input path="count" id="count" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
                 <c:if test="${trainig.type.attempt}">
                     <div class="form-group">
                         <label class="control-label">Попытки: </label>
-                        <form:input path="attempt" id="attempt" cssClass="required form-control"/>
+                        <form:input path="attempt" id="attempt" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
                 <c:if test="${trainig.type.weight}">
                     <div class="form-group">
                         <label class="control-label">Вес: </label>
-                        <form:input path="weight" id="weight" cssClass="required form-control"/>
+                        <form:input path="weight" id="weight" cssClass="required  digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>

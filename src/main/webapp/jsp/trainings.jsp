@@ -106,7 +106,7 @@
                         <h4>Тренировки</h4>
                     </div>
                     <div class="panel-body">
-                        <h2>Введите типы тренировок</h2>
+                        <h3>Пусто</h3>
                     </div>
                 </div>
             </c:otherwise>

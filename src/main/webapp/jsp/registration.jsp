@@ -11,6 +11,7 @@
     <script type="text/javascript" src="<c:url value='/js/bootstrap-datepicker.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/localization/bootstrap-datepicker.ru.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery.validate.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/validate.customMethod.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/localization/validate.messages_ru.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/sportgym.js'/>"></script>
     <style>
@@ -43,7 +44,7 @@
                 format: "dd.mm.yyyy",
                 language: 'ru',
                 todayBtn: true,
-                endDate:"0d"
+                endDate: "0d"
             }).on('changeDate', function (ev) {
                 $(this).valid();
             });
@@ -98,7 +99,8 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Дата рождения: </label>
-                            <input type="text" name="birthday" class="required datepicker form-control">
+                            <input type="text" name="birthday" class="required dateRU datepicker form-control">
+                            <span class="help-block"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">E-mail: </label>

@@ -27,6 +27,23 @@
                     }
                 });
             },
+            rules: {
+                weight: {
+                    max: 300
+                },
+                height: {
+                    max: 300
+                },
+                body: {
+                    max: 300
+                },
+                haunch: {
+                    max: 300
+                },
+                forearm: {
+                    max: 300
+                }
+            },
             errorPlacement: function (error, element) {
                 validPlaceError(error, element);
             },
@@ -55,26 +72,29 @@
                 <form:hidden path="measurementDate"/>
                 <form:hidden path="version"/>
                 <div class="form-group">
-                    <label class="control-label">Вес: </label>
-                    <form:input path="weight" id="weight" cssClass="required form-control"/>
+                    <label class="control-label">Вес/кг: </label>
+                    <form:input path="weight" id="weight" cssClass="required digits form-control"/>
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Рост: </label>
-                    <form:input path="height" id="height" cssClass="required form-control"/>
+                    <label class="control-label">Рост /см: </label>
+                    <form:input path="height" id="height" cssClass="required digits form-control"/>
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Окружность груди /см: </label>
-                    <form:input path="body" id="body" cssClass="form-control"/>
+                    <form:input path="body" id="body" cssClass="digits form-control"/>
+                    <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Окружность бедра /см: </label>
-                    <form:input path="haunch" id="haunch" cssClass="form-control"/>
+                    <form:input path="haunch" id="haunch" cssClass="digits form-control"/>
+                    <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Окружность предплечья / см: </label>
-                    <form:input path="forearm" id="forearm" cssClass="form-control"/>
+                    <form:input path="forearm" id="forearm" cssClass="digits form-control"/>
+                    <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Сохранить</button>

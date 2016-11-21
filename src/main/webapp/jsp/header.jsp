@@ -72,6 +72,7 @@
 
     </script>
 </head>
+<body>
 <nav>
     <div class="navbar navbar-custom navbar-static-top">
         <div class="container-fluid">

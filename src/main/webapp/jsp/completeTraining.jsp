@@ -1,20 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Кирилл
-  Date: 19.11.2016
-  Time: 18:32
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script type="text/javascript">
     $(document).ready(function () {
-
-        $('.datetimepicker').datetimepicker({
-            locale: 'ru',
-            minDate:"moment"
-        });
 
         $("#addTrainigForm").validate({
             submitHandler: function (form) {
@@ -58,26 +46,45 @@
                 <form:hidden path="id"/>
                 <form:hidden path="user"/>
                 <form:hidden path="type"/>
+                <form:hidden path="targetDate"/>
+                <form:hidden path="notificate"/>
                 <form:hidden path="version"/>
-                <div class="form-group">
-                    <label class="control-label">Дата/Время тренировки: </label>
-                    <form:input path="targetDate" id="targetDate" cssClass="required form-control datetimepicker"/>
-                    <span class="help-block"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Напоминание: </label>
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                            <input type="radio" name="alarm" autocomplete="off" value="h1" checked> За час
-                        </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="alarm" autocomplete="off" value="h3"> За 3 часа
-                        </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="alarm" autocomplete="off" value="h6"> За 6 часов
-                        </label>
+                <input type="hidden" name="complete" value="true">
+                <c:if test="${trainig.type.distance}">
+                    <div class="form-group">
+                        <label class="control-label">Дистанция: </label>
+                        <form:input path="distance" id="distance" cssClass="required form-control"/>
+                        <span class="help-block"></span>
                     </div>
-                </div>
+                </c:if>
+                <c:if test="${trainig.type.time}">
+                    <div class="form-group">
+                        <label class="control-label">Время: </label>
+                        <form:input path="time" id="time" cssClass="required form-control"/>
+                        <span class="help-block"></span>
+                    </div>
+                </c:if>
+                <c:if test="${trainig.type.count}">
+                    <div class="form-group">
+                        <label class="control-label">Количество: </label>
+                        <form:input path="count" id="count" cssClass="required form-control"/>
+                        <span class="help-block"></span>
+                    </div>
+                </c:if>
+                <c:if test="${trainig.type.attempt}">
+                    <div class="form-group">
+                        <label class="control-label">Попытки: </label>
+                        <form:input path="attempt" id="attempt" cssClass="required form-control"/>
+                        <span class="help-block"></span>
+                    </div>
+                </c:if>
+                <c:if test="${trainig.type.weight}">
+                    <div class="form-group">
+                        <label class="control-label">Вес: </label>
+                        <form:input path="weight" id="weight" cssClass="required form-control"/>
+                        <span class="help-block"></span>
+                    </div>
+                </c:if>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Сохранить</button>
                     <button type="button" onclick="closeForm()" class="btn btn-default">Отмена</button>

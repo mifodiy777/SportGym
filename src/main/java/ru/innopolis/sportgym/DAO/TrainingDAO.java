@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface TrainingDAO extends JpaRepository<Training, Integer> {
 
-    List<Training> findByUser(User user);
+    List<Training> findByUserAndType(User user, TrainingType type);
 
     Long deleteByType(TrainingType trainingType);
 

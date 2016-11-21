@@ -69,8 +69,12 @@
             <h4>Типы трениировок</h4>
         </div>
         <div class="panel-body">
+            <div class="table-responsive">
+                <div class="col-md-12">
             <table id="trainingTypeTable" class="table table-striped table-bordered" cellspacing="0"
                    width="100%"></table>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

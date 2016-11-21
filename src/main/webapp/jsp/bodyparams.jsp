@@ -41,25 +41,28 @@
             ]
         });
 
+        $(window).resize(function () {
+            closeCharts();
+        });
+
         $("#graficForm").submit(function (e) {
             e.preventDefault();
             $("#graficForm").ajaxSubmit({
                 success: function (html) {
-                    $('#line-graf').empty();
-                    $("#chartWell").show();
-                    Morris.Line({
-                        element: 'line-graf',
-                        data: JSON.parse(html),
-                        xkey: 'year',
-                        ykeys: ['value'],
-                        labels: ['Результат']
-                    });
-                    return false;
-                },
-                error: function (xhr) {
-                    if (xhr.status == 409) {
-                        showErrorMessage(xhr.responseText);
+                    if (html != "[]") {
+                        $('#line-graf').empty();
+                        $("#chartWell").show();
+                        Morris.Line({
+                            element: 'line-graf',
+                            data: JSON.parse(html),
+                            xkey: 'year',
+                            ykeys: ['value'],
+                            labels: ['Результат']
+                        });
+                    } else {
+                        showErrorMessage("Не данных для построения графика")
                     }
+                    return false;
                 }
             });
             return false;
@@ -77,7 +80,7 @@
     <br>
     <div id="chartWell" class="well" style="display: none">
         <button type="button" class="close"
-                onclick="$('#chartWell').hide();">&times;</button>
+                onclick="closeCharts();">&times;</button>
         <br>
         <div id="line-graf" style="height: 400px;"></div>
     </div>
@@ -105,7 +108,14 @@
                 </div>
 
             </form>
-            <table id="bodyParamTable" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>
+            <div class="table-responsive">
+                <div class="col-md-12">
+                    <table id="bodyParamTable" class="table table-striped table-bordered" cellspacing="0"
+                           width="100%"></table>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </div>

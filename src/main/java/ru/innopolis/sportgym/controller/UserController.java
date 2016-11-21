@@ -60,6 +60,7 @@ public class UserController {
     public String saveProfile(User user, ModelMap map) {
         try {
             userService.saveProfile(user);
+            map.addAttribute("msg", "Вы зарегистрировались");
             return "redirect:login";
         } catch (DataSQLException e) {
             map.addAttribute("errorMsg", "Ошибка: Такой пользователь уже существует! Попробуйте снова");

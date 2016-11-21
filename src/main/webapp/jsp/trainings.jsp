@@ -7,53 +7,109 @@
             showErrorMessage(message);
         }).DataTable({
             "ajax": {
-                "url": "allTrainigs",
+                "url": "allTrainigs/${currentType.id}",
                 "type": "POST"
             },
+            "fnDrawCallback": function () {
+                $('a.deleteButton').off("click");
+                $('a.deleteButton').popConfirm({
+                    title: "Удалить?",
+                    content: "",
+                    placement: "bottom",
+                    yesBtn: "Да",
+                    noBtn: "Нет"
+                });
+            },
             "columns": [
-                {"data": "type.name", 'title': 'Тип тренировки'},
-                {"data": "targetDate.date", 'title': 'Дата тренировки'},
-                {"data": "distance", 'title': 'Дистанция'},
-                {"data": "time", 'title': 'Время'},
-                {"data": "count", 'title': 'Количество'},
-                {"data": "attempt", 'title': 'Подходы'},
-                {"data": "weight", 'title': 'Вес'},
                 {
                     data: "complete", "searchable": false, "render": function (data, type, full) {
-                    return (data) ? "Да" : "Нет";
-                }, 'title': 'Выполненно?'
+                    if (data) {
+                        return "<a class='btn btn-success'>Да</a>";
+                    } else {
+                        return '<a class="btn btn-default" id="complete_' + full.id + '"  onclick=\"completeTraning(' + full.id + ')\">Нет</a>';
+                    }
+
+                }, 'title': 'Выполнено'
                 },
-                {"data": "notificate.date", 'title': 'Напоминание'}
+                {"data": "targetDate.date", 'title': 'Дата тренировки'},
+                <c:if test="${currentType.distance}">
+                {"data": "distance", 'title': 'Дистанция'},
+                </c:if>
+                <c:if test="${currentType.time}">
+                {"data": "time", 'title': 'Время'},
+                </c:if>
+                <c:if test="${currentType.count}">
+                {"data": "count", 'title': 'Количество'},
+                </c:if>
+                <c:if test="${currentType.attempt}">
+                {"data": "attempt", 'title': 'Подходы'},
+                </c:if>
+                <c:if test="${currentType.weight}">
+                {"data": "weight", 'title': 'Вес'},
+                </c:if>
+                {"data": "notificate.date", 'title': 'Напоминание'},
+                {
+                    "searchable": false, "sorting": false, "render": function (data, type, full) {
+                    var edit = '<a href="#" class="btn btn-primary" onclick=\"editTraining(' + full.id + ');\"><span class=\"glyphicon glyphicon-pencil\"/></span></a>';
+                    var del = '<a href="#" class="btn btn-danger deleteButton" onclick=\"deleteTraining(' + full.id + ');\"><span class=\"glyphicon glyphicon-trash\"/></span></a>';
+                    return '<div class="btn-group">' + edit + del + "</div>";
+
+                }
+                }
 
             ]
         });
     });
 </script>
 
-
-<div class="container">
-    <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
+<div class="container-fluid">
+    <div class="col-md-2">
+        <h3 class="type-label">Типы тренировок:</h3>
+        <div class="list-group">
+            <c:if test="${empty trainingType}">
+                <h3>Пусто</h3>
+            </c:if>
             <c:forEach items="${trainingType}" var="type">
-                <li role="presentation"><a href="#">${type.name}</a></li>
+                <a href="traningPage?id=${type.id}"
+                   class="list-group-item  <c:if test="${type.id eq currentType.id}">active</c:if>">
+                        ${type.name}
+                </a>
             </c:forEach>
-        </ul>
-    </div>
-    <div class="col-md-9">
-        <button class="btn btn-success addBtn" onclick="addTraining()">
-            <span class="glyphicon glyphicon-plus"></span> Добавить тренировку
-        </button>
-        <div id="formPanel"></div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h4>Тренировки</h4>
-            </div>
-            <div class="panel-body">
-                <table id="trainingTable" class="table table-striped table-bordered" cellspacing="0"
-                       width="100%"></table>
-            </div>
         </div>
     </div>
+    <br>
+    <div class="col-md-10">
+        <c:choose>
+            <c:when test="${not empty currentType.id}">
+                <button class="btn btn-success addBtn" onclick="addTraining('${currentType.id}')">
+                    <span class="glyphicon glyphicon-plus"></span> Добавить тренировку
+                </button>
+                <div id="formPanel"></div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4>Тренировки</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div class="col-md-12">
+                                <table id="trainingTable" class="table table-striped table-bordered" cellspacing="0"
+                                       width="100%"></table>
+                            </div>
+                        </div>
 
-</div>
-<jsp:include page="footer.jsp"/>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4>Тренировки</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h2>Введите типы тренировок</h2>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <jsp:include page="footer.jsp"/>

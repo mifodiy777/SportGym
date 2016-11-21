@@ -5,7 +5,7 @@
     <title>Регистрация</title>
     <link rel="icon" href="../img/ico-logo.ico" type="image/x-icon"/>
     <link type="text/css" href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"/>
-    <link type="text/css" href="<c:url value='/css/sportgym.css'/>" rel="stylesheet"/>
+    <link type="text/css" href="<c:url value='/css/datepicker.css'/>" rel="stylesheet"/>
     <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/bootstrap-datepicker.js'/>"></script>
@@ -42,7 +42,8 @@
                 autoclose: true,
                 format: "dd.mm.yyyy",
                 language: 'ru',
-                todayBtn: true
+                todayBtn: true,
+                endDate:"0d"
             }).on('changeDate', function (ev) {
                 $(this).valid();
             });

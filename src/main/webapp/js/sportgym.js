@@ -37,6 +37,7 @@ function addBodyParam() {
     $.get("bodyParamForm", function (html) {
         $("#formPanel").html(html).show();
         $(".addBtn").hide();
+        closeCharts();
     })
 }
 
@@ -47,8 +48,8 @@ function addTrainigType() {
     })
 }
 
-function addTraining() {
-    $.get("trainigForm", function (html) {
+function addTraining(type) {
+    $.get("trainigForm", {type: type}, function (html) {
         $("#formPanel").html(html).show();
         $(".addBtn").hide();
     }).fail(function (xhr) {
@@ -69,6 +70,17 @@ function editParam(id) {
     })
 }
 
+function editTraining(id) {
+    $.get("editTraining/" + id, function (html) {
+        $("#formPanel").html(html).show();
+        $(".addBtn").hide();
+    }).fail(function (xhr) {
+        if (xhr.status == 409) {
+            showErrorMessage(xhr.responseText);
+        }
+    })
+}
+
 function deleteParam(id) {
     $.ajax({
         url: "deleteBodyParam/" + id,
@@ -76,6 +88,7 @@ function deleteParam(id) {
         success: function (html) {
             showSuccessMessage(html);
             $('#bodyParamTable').DataTable().ajax.reload(null, false);
+            closeCharts();
         },
         error: function (xhr) {
             if (xhr.status == 409) {
@@ -101,9 +114,50 @@ function deleteTrainingType(id) {
     });
 }
 
+function deleteTraining(id) {
+    $.ajax({
+        url: "deleteTraining/" + id,
+        type: "post",
+        success: function (html) {
+            showSuccessMessage(html);
+            $('#trainingTable').DataTable().ajax.reload(null, false);
+        },
+        error: function (xhr) {
+            if (xhr.status == 409) {
+                showErrorMessage(xhr.responseText);
+            }
+        }
+    });
+}
+
+function completeTraning(id) {
+    $.get("trainigComplete/" + id, function (html) {
+        $("#formPanel").html(html).show();
+        $(".addBtn").hide();
+    }).fail(function (xhr) {
+        if (xhr.status == 409) {
+            showErrorMessage(xhr.responseText);
+        }
+    })
+}
+
 function closeForm() {
     $("#formPanel").hide();
     $(".addBtn").show();
-
 }
 
+function closeCharts() {
+    $('#line-graf').empty();
+    $("#chartWell").hide();
+}
+
+function checkTypeParam() {
+    if ($(".radio-group:checked").size() != 0) {
+        $("#msg-error").hide();
+        return true;
+    } else {
+        $("#msg-error").show();
+        return false;
+    }
+
+}

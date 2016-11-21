@@ -29,7 +29,7 @@
     <script type="text/javascript" src="<c:url value='/js/localization/bootstrap-datepicker.ru.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery.popconfirm.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery.scrollUp.js'/>"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script type="text/javascript" src="<c:url value='/js/raphael-min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/sportgym.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/js/morris.min.js'/>"></script>
 
@@ -57,8 +57,17 @@
         });
 
 
-        $(function() {
+        $(function () {
             $.scrollUp();
+
+            $('#user-info').popover({
+                content: $("#information").html(),
+                html: true,
+                placement: "bottom",
+                trigger: "hover",
+                template: '<div class="popover user-inf" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>'
+            });
+
         })
 
     </script>
@@ -69,14 +78,12 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">SportGym</span>
+                    <span class="sr-only">SPORT GYM</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<c:url value="/"/>"><img class="logo-img"
-                                                                       src="<c:url value="/img/logo.png"/>"
-                                                                       alt=""></a>
+                <a class="navbar-brand" href="<c:url value="/"/>"><h1 class="logo-img">SPORT GYM</h1></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -86,7 +93,7 @@
                             Тренировки</a>
                     </li>
                     <li>
-                        <a href="bodyParamsPage"><span class="glyphicon glyphicon-calendar"></span>
+                        <a href="bodyParamsPage"><span class="glyphicon glyphicon-stats"></span>
                             Физиологические параметры </a>
                     </li>
                     <li>
@@ -97,9 +104,8 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#" onclick="editUser('${sessionScope.userCurrent.id}')" title="Изменить профиль"><c:out
-                                value="${sessionScope.userCurrent.email}"/> <span
-                                class="glyphicon glyphicon-cog"></span></a>
+                        <a href="#" id="user-info" onclick="editUser('${sessionScope.userCurrent.id}')" title="Профиль">
+                            <span class="glyphicon glyphicon-cog"></span></a>
                     </li>
                     <li>
                         <a href="logout" title="Выйти">
@@ -111,6 +117,11 @@
         </div>
     </div>
 </nav>
+<div id="information" style="display:none;">
+    <p><span><b>Логин: </b> ${sessionScope.userCurrent.email}</span></p>
+
+    <p><span><b>ФИО: </b> ${sessionScope.userCurrent.FIO}</span></p>
+</div>
 <div id="profileForm"></div>
 <div id="messages" class="alert alert-success fade in " style="display: none"></div>
 

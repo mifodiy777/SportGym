@@ -52,7 +52,7 @@ public class Training {
     private Integer weight;
 
     // Флаг выполнения
-    @Column(name = "complete")
+    @Column(name = "complete",columnDefinition="tinyint(1) default 0")
     private Boolean complete;
 
     //Дата/время напоминания(Будильник)

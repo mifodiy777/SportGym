@@ -12,6 +12,7 @@ import ru.innopolis.sportgym.exception.DataSQLException;
 import ru.innopolis.sportgym.service.TrainingService;
 import ru.innopolis.sportgym.service.TrainingTypeService;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -38,9 +39,9 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public List<Training> findByUser(User user) throws DataSQLException {
+    public List<Training> findByUserAndType(User user, TrainingType type) throws DataSQLException {
         try {
-            return trainingDAO.findByUser(user);
+            return trainingDAO.findByUserAndType(user, type);
         } catch (DataIntegrityViolationException e) {
             throw new DataSQLException("Ошибка получения  списка тренировок");
         }
@@ -53,5 +54,31 @@ public class TrainingServiceImpl implements TrainingService {
         } catch (DataIntegrityViolationException e) {
             throw new DataSQLException("Ошибка сохранения тренировки в базу");
         }
+    }
+
+    @Override
+    public void deleteTraining(Integer id) throws DataSQLException {
+        try {
+            trainingDAO.delete(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataSQLException("Ошибка удаления тренировки");
+        }
+    }
+
+    @Override
+    public Calendar getNotificate(Calendar target, String alarm) {
+        Calendar notificate = (Calendar) target.clone();
+        switch (alarm) {
+            case "h1":
+                notificate.add(Calendar.HOUR, -1);
+                break;
+            case "h3":
+                notificate.add(Calendar.HOUR, -3);
+                break;
+            case "h6":
+                notificate.add(Calendar.HOUR, -6);
+                break;
+        }
+        return notificate;
     }
 }

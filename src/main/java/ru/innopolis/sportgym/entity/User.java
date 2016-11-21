@@ -159,6 +159,10 @@ public class User {
         this.version = version;
     }
 
+    public String getFIO() {
+        return this.surname + " " + this.name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

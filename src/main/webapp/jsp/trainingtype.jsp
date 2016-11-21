@@ -13,19 +13,22 @@
 
         $("#addTrainigTypeForm").validate({
             submitHandler: function (form) {
-                $(form).ajaxSubmit({
-                    success: function (html) {
-                        $("#trainingTypeTable").DataTable().ajax.reload(null, false);
-                        showSuccessMessage(html);
-                        closeForm();
-                        return false;
-                    },
-                    error: function (xhr) {
-                        if (xhr.status == 409) {
-                            showErrorMessage(xhr.responseText);
+                if (checkTypeParam()) {
+                    $(form).ajaxSubmit({
+                        success: function (html) {
+                            $("#trainingTypeTable").DataTable().ajax.reload(null, false);
+                            showSuccessMessage(html);
+                            closeForm();
+                            return false;
+                        },
+                        error: function (xhr) {
+                            if (xhr.status == 409) {
+                                showErrorMessage(xhr.responseText);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
             },
             errorPlacement: function (error, element) {
                 validPlaceError(error, element);
@@ -33,6 +36,10 @@
             success: function (label, element) {
                 validPlaceSuccess(label, element);
             }
+        });
+
+        $(".radio-group").on("click", function () {
+            checkTypeParam();
         });
 
         $("#addTrainigTypeForm").submit(function (e) {
@@ -62,10 +69,11 @@
                 <h4>Типы измерений:</h4>
                 <hr>
 
-
+                <p id="msg-error" class="text-danger" style="display: none"><strong>*Необходимо выделить хотя бы один
+                    параметр</strong></p>
                 <div class="form-group input-group">
                     <form:checkbox path="distance" id="distance"
-                                   cssClass="form-control"
+                                   cssClass="radio-group form-control"
                                    name="fancy-checkbox-success" autocomplete="off"/>
                     <div class="[ btn-group ]">
                         <label for="distance" class="[ btn btn-default ]">
@@ -81,7 +89,7 @@
 
                 <div class="form-group input-group">
                     <form:checkbox path="time" id="time"
-                                   cssClass="form-control"
+                                   cssClass="radio-group form-control"
                                    name="fancy-checkbox-success" autocomplete="off"/>
                     <div class="[ btn-group ]">
                         <label for="time" class="[ btn btn-default ]">
@@ -97,7 +105,7 @@
 
                 <div class="form-group input-group">
                     <form:checkbox path="count" id="count"
-                                   cssClass="form-control"
+                                   cssClass="radio-group form-control"
                                    name="fancy-checkbox-success" autocomplete="off"/>
                     <div class="[ btn-group ]">
                         <label for="count" class="[ btn btn-default ]">
@@ -113,7 +121,7 @@
 
                 <div class="form-group input-group">
                     <form:checkbox path="attempt" id="attempt"
-                                   cssClass="form-control"
+                                   cssClass="radio-group form-control"
                                    name="fancy-checkbox-success" autocomplete="off"/>
                     <div class="[ btn-group ]">
                         <label for="attempt" class="[ btn btn-default ]">
@@ -129,7 +137,7 @@
 
                 <div class="form-group input-group">
                     <form:checkbox path="weight" id="weight"
-                                   cssClass="form-control"
+                                   cssClass="radio-group form-control"
                                    name="fancy-checkbox-success" autocomplete="off"/>
                     <div class="[ btn-group ]">
                         <label for="weight" class="[ btn btn-default ]">

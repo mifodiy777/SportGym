@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ru.innopolis.sportgym.controller.AjaxInterceptor;
 import ru.innopolis.sportgym.service.impl.UserDetailsServiceImpl;
 
 /**
@@ -22,8 +23,15 @@ import ru.innopolis.sportgym.service.impl.UserDetailsServiceImpl;
 @ComponentScan("ru.innopolis.sportgym")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final UserDetailsServiceImpl userDetailsService;
+
+    private final AjaxInterceptor myEntryPoint;
+
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, AjaxInterceptor myEntryPoint) {
+        this.userDetailsService = userDetailsService;
+        this.myEntryPoint = myEntryPoint;
+    }
 
     // регистрируем нашу реализацию UserDetailsService
     // а также PasswordEncoder для хеширования пароля
@@ -49,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //Доступ имеет только пользователь с ролю ROLE_USER
                 .antMatchers("/**").hasAnyRole("USER")
                 .anyRequest().authenticated();
+
+        http.exceptionHandling().authenticationEntryPoint(myEntryPoint);
 
         http.formLogin()
                 .defaultSuccessUrl("/", false)

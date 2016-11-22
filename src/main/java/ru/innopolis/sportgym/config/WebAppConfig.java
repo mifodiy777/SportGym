@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import ru.innopolis.sportgym.controller.AjaxInterceptor;
 import ru.innopolis.sportgym.service.impl.UserDetailsServiceImpl;
 
 /**
@@ -49,6 +50,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         return resolver;
+    }
+
+    @Bean
+    public AjaxInterceptor ajaxInterceptor() {
+        return new AjaxInterceptor("/login");
     }
 
 }

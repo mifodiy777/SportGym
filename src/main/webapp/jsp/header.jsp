@@ -60,6 +60,12 @@
         $(function () {
             $.scrollUp();
 
+            jQuery.ajaxSetup({
+                'beforeSend': function (xhr) {
+                    xhr.setRequestHeader("X-AjaxRequest", "1");
+                }
+            });
+
             $('#user-info').popover({
                 content: $("#information").html(),
                 html: true,

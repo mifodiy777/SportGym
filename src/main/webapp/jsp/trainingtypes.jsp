@@ -6,7 +6,7 @@
             showErrorMessage(message);
         }).DataTable({
             "ajax": {
-                "url": "allTrainigTypes",
+                "url": "allTrainingTypes",
                 "type": "POST"
             },
             "fnDrawCallback": function () {
@@ -60,7 +60,7 @@
 
 
 <div class="container">
-    <button class="btn btn-success addBtn" onclick="addTrainigType()">
+    <button class="btn btn-success addBtn" onclick="addTrainingType()">
         <span class="glyphicon glyphicon-plus"></span> Добавить тип
     </button>
     <div id="formPanel"></div>

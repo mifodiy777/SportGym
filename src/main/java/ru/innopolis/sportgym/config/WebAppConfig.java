@@ -52,6 +52,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+    //Уничтожает сессиипри AJAX запросах(добавляет атрибуты для отлавливания на странице)
     @Bean
     public AjaxInterceptor ajaxInterceptor() {
         return new AjaxInterceptor("/login");

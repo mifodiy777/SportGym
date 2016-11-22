@@ -4,8 +4,6 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,12 +17,11 @@ import ru.innopolis.sportgym.entity.User;
 import ru.innopolis.sportgym.exception.DataSQLException;
 import ru.innopolis.sportgym.gson.CalendarAdapter;
 import ru.innopolis.sportgym.gson.ChartAdapter;
+import ru.innopolis.sportgym.gson.UserAdapter;
 import ru.innopolis.sportgym.service.BodyParamService;
 import ru.innopolis.sportgym.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -56,51 +53,73 @@ public class BodyParamController {
     }
 
     /**
-     * Страница регистрации
+     * Страница физиологических параметров
      *
-     * @return Страница регистрации
+     * @return jsp
      */
     @RequestMapping(value = {"/bodyParamsPage"}, method = RequestMethod.GET)
     public String getParamPage() {
         return "bodyparams";
     }
 
+    /**
+     * JSON список ппараметров определенного User'a
+     * @return json
+     */
     @RequestMapping(value = "allBodyParams", method = RequestMethod.POST)
-    public ResponseEntity<String> getAllBudyParam(HttpSession session) {
+    public ResponseEntity<String> allBodyParams() {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        User user = (User) session.getAttribute("userCurrent");
         gsonBuilder.registerTypeAdapter(GregorianCalendar.class, new CalendarAdapter(DATE_FORMAT));
+        gsonBuilder.registerTypeAdapter(User.class, new UserAdapter());
         try {
-            return Utils.convertListToJson(gsonBuilder, paramService.findByUser(user));
+            return Utils.convertListToJson(gsonBuilder, paramService.findByUser(userService.getCurrentUser()));
         } catch (DataSQLException e) {
             return ResponseEntity.status(409).body("Error");
         }
     }
 
+    /**
+     * Данные для построения графика
+     * @param param параметр
+     * @param response
+     * @return JSON
+     */
     @RequestMapping(value = "createGraf", method = RequestMethod.POST)
     @ResponseBody
-    public String createGraf(@RequestParam("param") String param,HttpSession session, HttpServletResponse response ) {
+    public String createGraf(@RequestParam("param") String param, HttpServletResponse response) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        User user = (User) session.getAttribute("userCurrent");
         gsonBuilder.registerTypeAdapter(BodyParam.class, new ChartAdapter(param));
+        gsonBuilder.registerTypeAdapter(User.class, new UserAdapter());
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         try {
-            return Utils.convertDataChart(gsonBuilder, paramService.findByUser(user));
+            return Utils.convertJSON(gsonBuilder, paramService.findByUser(userService.getCurrentUser()));
         } catch (DataSQLException e) {
             return null;
         }
     }
 
 
+    /**
+     * Форма добавления параметров
+     * @param map
+     * @return jsp
+     */
     @RequestMapping(value = {"bodyParamForm"}, method = RequestMethod.GET)
-    public String getBodyParamForm(HttpSession session, ModelMap map) {
+    public String getBodyParamForm(ModelMap map) {
         BodyParam bodyParam = new BodyParam();
-        bodyParam.setUser((User) session.getAttribute("userCurrent"));
+        bodyParam.setUser(userService.getCurrentUser());
         map.addAttribute("bodyParam", bodyParam);
         return "bodyparam";
     }
 
+    /**
+     * Форма редактирования параметров
+     * @param id параметра
+     * @param map
+     * @param response
+     * @return jsp
+     */
     @RequestMapping(value = "bodyParamForm/{id}", method = RequestMethod.GET)
     public String getBodyParamForm(@PathVariable("id") Integer id, ModelMap map, HttpServletResponse response) {
         try {
@@ -115,6 +134,13 @@ public class BodyParamController {
 
     }
 
+    /**
+     * Сохранение физиологических параметров
+     * @param param Параметры
+     * @param map
+     * @param response
+     * @return msg
+     */
     @RequestMapping(value = {"/saveBodyParam"}, method = RequestMethod.POST)
     public String saveBodyParam(BodyParam param, ModelMap map, HttpServletResponse response) {
         try {
@@ -136,7 +162,7 @@ public class BodyParamController {
      * @param id       id записи физиологических параметров
      * @param map      ModelMap
      * @param response response
-     * @return сообщение
+     * @return msg
      */
     @RequestMapping(value = "deleteBodyParam/{id}", method = RequestMethod.POST)
     public String deleteBodyParam(@PathVariable("id") Integer id, ModelMap map, HttpServletResponse response) {

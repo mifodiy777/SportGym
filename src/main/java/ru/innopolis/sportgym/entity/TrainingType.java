@@ -45,6 +45,7 @@ public class TrainingType {
     @Column(name = "weight")
     private Boolean weight;
 
+    //Версия/ оптимистическая блокировка
     @Version
     @Column(name = "version")
     private Long version;

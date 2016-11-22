@@ -30,7 +30,7 @@ public class TrainingTypeServiceImpl implements TrainingTypeService {
     }
 
     @Override
-    public TrainingType getTrainigType(Integer id) throws DataSQLException {
+    public TrainingType getTrainingType(Integer id) throws DataSQLException {
         try {
             return trainingTypeDAO.findOne(id);
         } catch (DataIntegrityViolationException e) {
@@ -49,7 +49,7 @@ public class TrainingTypeServiceImpl implements TrainingTypeService {
     }
 
     @Override
-    public TrainingType saveTrainigType(TrainingType trainingType) throws DataSQLException {
+    public TrainingType saveTrainingType(TrainingType trainingType) throws DataSQLException {
         try {
             return trainingTypeDAO.save(trainingType);
         } catch (DataIntegrityViolationException e) {
@@ -59,7 +59,7 @@ public class TrainingTypeServiceImpl implements TrainingTypeService {
 
     @Override
     @Transactional
-    public void deleteTrainigType(Integer id) throws DataSQLException {
+    public void deleteTrainingType(Integer id) throws DataSQLException {
         try {
             TrainingType trainingType = trainingTypeDAO.findOne(id);
             trainingDAO.deleteByType(trainingType);

@@ -11,7 +11,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $("#addTrainigTypeForm").validate({
+        $("#addTrainingTypeForm").validate({
             submitHandler: function (form) {
                 if (checkTypeParam()) {
                     $(form).ajaxSubmit({
@@ -42,7 +42,7 @@
             checkTypeParam();
         });
 
-        $("#addTrainigTypeForm").submit(function (e) {
+        $("#addTrainingTypeForm").submit(function (e) {
             e.preventDefault();
             $(this).valid();
             return false;
@@ -56,7 +56,7 @@
     </div>
     <div class="panel-body">
         <div class="col-md-8">
-            <form:form modelAttribute="trainigType" id="addTrainigTypeForm" method="post" action="saveTrainigType">
+            <form:form modelAttribute="trainingType" id="addTrainingTypeForm" method="post" action="saveTrainingType">
                 <form:hidden path="id"/>
                 <form:hidden path="user"/>
                 <form:hidden path="version"/>

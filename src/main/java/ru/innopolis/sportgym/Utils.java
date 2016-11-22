@@ -14,7 +14,7 @@ import static ru.innopolis.sportgym.config.Constance.DATE_FORMAT;
 public class Utils {
 
     /**
-     * Преобразование коллекции элементов в JSON массив с именем aaData для таблиц
+     * Преобразование коллекции элементов в JSON массив с именем aaData для jQuery DataTable
      */
     public static ResponseEntity<String> convertListToJson(GsonBuilder gson, Iterable collection) {
         gson.serializeNulls().setDateFormat(DATE_FORMAT);
@@ -25,7 +25,14 @@ public class Utils {
         return new ResponseEntity<String>(obj.toString(), responseHeaders, HttpStatus.OK);
     }
 
-    public static String convertDataChart(GsonBuilder gson, Iterable collection){
+    /**
+     * Преобразование к обычному типу JSON, не для jQuery DataTable
+     *
+     * @param gson
+     * @param collection
+     * @return
+     */
+    public static String convertJSON(GsonBuilder gson, Iterable collection) {
         return gson.serializeNulls().create().toJsonTree(collection).toString();
     }
 

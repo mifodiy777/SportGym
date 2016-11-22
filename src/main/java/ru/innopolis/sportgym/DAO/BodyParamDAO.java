@@ -14,5 +14,11 @@ import java.util.List;
 @Repository
 public interface BodyParamDAO extends JpaRepository<BodyParam, Integer> {
 
+    /**
+     * Список параметров пользователя
+     * @param user пользователь
+     * @return
+     * @throws DataSQLException
+     */
     List<BodyParam> findByUser(User user) throws DataSQLException;
 }

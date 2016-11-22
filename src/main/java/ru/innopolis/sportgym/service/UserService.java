@@ -14,4 +14,6 @@ public interface UserService {
 
     User getUser(Integer id) throws DataSQLException;
 
+    User getCurrentUser();
+
 }

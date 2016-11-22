@@ -81,4 +81,13 @@ public class TrainingServiceImpl implements TrainingService {
         }
         return notificate;
     }
+
+    @Override
+    public List<Training> findByUserAndComplete(User user, Boolean complete) throws DataSQLException {
+        try {
+            return trainingDAO.findByUserAndComplete(user, complete);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataSQLException("Ошибка получения списка тренировок");
+        }
+    }
 }

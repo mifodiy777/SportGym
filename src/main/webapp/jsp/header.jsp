@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<security:authentication property="principal" var="user"/>
 <head>
     <title>SportGym</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -66,14 +67,6 @@
                 }
             });
 
-            $('#user-info').popover({
-                content: $("#information").html(),
-                html: true,
-                placement: "bottom",
-                trigger: "hover",
-                template: '<div class="popover user-inf" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>'
-            });
-
         })
 
     </script>
@@ -96,7 +89,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="traningPage"><span class="glyphicon glyphicon-check"></span>
+                        <a href="trainingPage"><span class="glyphicon glyphicon-check"></span>
                             Тренировки</a>
                     </li>
                     <li>
@@ -104,14 +97,17 @@
                             Физиологические параметры </a>
                     </li>
                     <li>
-                        <a href="traningTypePage"><span class="glyphicon glyphicon-th-list"></span>
+                        <a href="trainingTypePage"><span class="glyphicon glyphicon-th-list"></span>
                             Типы тренировок</a>
                     </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#" id="user-info" onclick="editUser('${sessionScope.userCurrent.id}')" title="Профиль">
+                        <a href="#" id="user-info">${user.username}</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="editUser()" title="Профиль">
                             <span class="glyphicon glyphicon-cog"></span></a>
                     </li>
                     <li>
@@ -124,11 +120,6 @@
         </div>
     </div>
 </nav>
-<div id="information" style="display:none;">
-    <p><span><b>Логин: </b> ${sessionScope.userCurrent.email}</span></p>
-
-    <p><span><b>ФИО: </b> ${sessionScope.userCurrent.FIO}</span></p>
-</div>
 <div id="profileForm"></div>
 <div id="messages" class="alert alert-success fade in " style="display: none"></div>
 

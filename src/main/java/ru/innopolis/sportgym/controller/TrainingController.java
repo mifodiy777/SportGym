@@ -18,12 +18,12 @@ import ru.innopolis.sportgym.entity.TrainingType;
 import ru.innopolis.sportgym.entity.User;
 import ru.innopolis.sportgym.exception.DataSQLException;
 import ru.innopolis.sportgym.gson.CalendarAdapter;
+import ru.innopolis.sportgym.gson.UserAdapter;
 import ru.innopolis.sportgym.service.TrainingService;
 import ru.innopolis.sportgym.service.TrainingTypeService;
 import ru.innopolis.sportgym.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -59,17 +59,16 @@ public class TrainingController {
     }
 
     /**
-     * Страница регистрации
+     * Страница тренировок
      *
-     * @return Страница регистрации
+     * @return jsp
      */
-    @RequestMapping(value = "traningPage", method = RequestMethod.GET)
-    public String getTrainigPage(@RequestParam(required = false, value = "id") Integer id, HttpSession session, ModelMap map) {
-        User user = (User) session.getAttribute("userCurrent");
+    @RequestMapping(value = "trainingPage", method = RequestMethod.GET)
+    public String getTrainingPage(@RequestParam(required = false, value = "id") Integer id, ModelMap map) {
         try {
-            List<TrainingType> trainingTypes = typeService.findByUser(user);
+            List<TrainingType> trainingTypes = typeService.findByUser(userService.getCurrentUser());
             if (id != null) {
-                map.addAttribute("currentType", typeService.getTrainigType(id));
+                map.addAttribute("currentType", typeService.getTrainingType(id));
             } else if (trainingTypes.size() > 0) {
                 map.addAttribute("currentType", trainingTypes.get(0));
             }
@@ -80,26 +79,58 @@ public class TrainingController {
         }
     }
 
-    @RequestMapping(value = "allTrainigs/{id}", method = RequestMethod.POST)
-    public ResponseEntity<String> getAllTrainig(@PathVariable("id") Integer id, HttpSession session) {
+    /**
+     * Список тренировок определенного User'а и определенного типа
+     * @param id типа тренировок
+     * @return JSON
+     */
+    @RequestMapping(value = "allTrainings/{id}", method = RequestMethod.POST)
+    public ResponseEntity<String> getAllTraining(@PathVariable("id") Integer id) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        User user = (User) session.getAttribute("userCurrent");
         gsonBuilder.registerTypeAdapter(GregorianCalendar.class, new CalendarAdapter(DATETIME_FORMAT));
+        gsonBuilder.registerTypeAdapter(User.class, new UserAdapter());
         try {
-            TrainingType type = typeService.getTrainigType(id);
-            return Utils.convertListToJson(gsonBuilder, trainingService.findByUserAndType(user, type));
+            return Utils.convertListToJson(gsonBuilder, trainingService.findByUserAndType(userService.getCurrentUser(), typeService.getTrainingType(id)));
         } catch (DataSQLException e) {
             return ResponseEntity.status(409).body("Error");
         }
     }
 
-    @RequestMapping(value = "trainigForm", method = RequestMethod.GET)
-    public String getTrainigForm(@RequestParam("type") Integer typeId, HttpSession session, ModelMap map, HttpServletResponse response) {
+    /**
+     * RESTful сервис получения списка всех тренировок(не выполненных)
+     * @param response
+     * @return JSON
+     */
+    @RequestMapping(value = "getTrainings", method = RequestMethod.GET)
+    @ResponseBody
+    public String createGraf(HttpServletResponse response) {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(GregorianCalendar.class, new CalendarAdapter(DATETIME_FORMAT));
+        gsonBuilder.registerTypeAdapter(User.class, new UserAdapter());
+        try {
+            return Utils.convertJSON(gsonBuilder, trainingService.findByUserAndComplete(userService.getCurrentUser(), false));
+        } catch (DataSQLException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Форма добавления тренировок
+     * @param typeId тип
+     * @param map
+     * @param response
+     * @return jsp
+     */
+    @RequestMapping(value = "trainingForm", method = RequestMethod.GET)
+    public String getTrainingForm(@RequestParam("type") Integer typeId, ModelMap map, HttpServletResponse response) {
         try {
             Training training = new Training();
-            training.setType(typeService.getTrainigType(typeId));
-            training.setUser((User) session.getAttribute("userCurrent"));
-            map.addAttribute("trainig", training);
+            training.setType(typeService.getTrainingType(typeId));
+            training.setUser(userService.getCurrentUser());
+            training.setComplete(false);
+            map.addAttribute("training", training);
             return "training";
         } catch (DataSQLException e) {
             response.setStatus(409);
@@ -109,11 +140,18 @@ public class TrainingController {
         }
     }
 
+    /**
+     * Форма редактирования тренировки (в зависимости от статуса подгружается своя форма редактирования)
+     * @param id тренировки
+     * @param map
+     * @param response
+     * @return jsp
+     */
     @RequestMapping(value = "editTraining/{id}", method = RequestMethod.GET)
     public String editTraining(@PathVariable("id") Integer id, ModelMap map, HttpServletResponse response) {
         try {
             Training training = trainingService.getTraining(id);
-            map.addAttribute("trainig", training);
+            map.addAttribute("training", training);
             return (training.getComplete()) ? "completeTraining" : "training";
         } catch (DataSQLException e) {
             response.setStatus(409);
@@ -123,10 +161,17 @@ public class TrainingController {
         }
     }
 
-    @RequestMapping(value = "trainigComplete/{id}", method = RequestMethod.GET)
-    public String trainigComplete(@PathVariable("id") Integer id, HttpSession session, ModelMap map, HttpServletResponse response) {
+    /**
+     * Форма изменения статуса тренировки(требуется заполнение результатов)
+     * @param id тренировки
+     * @param map
+     * @param response
+     * @return jsp
+     */
+    @RequestMapping(value = "trainingComplete/{id}", method = RequestMethod.GET)
+    public String trainingComplete(@PathVariable("id") Integer id, ModelMap map, HttpServletResponse response) {
         try {
-            map.addAttribute("trainig", trainingService.getTraining(id));
+            map.addAttribute("training", trainingService.getTraining(id));
             return "completeTraining";
         } catch (DataSQLException e) {
             response.setStatus(409);
@@ -136,8 +181,16 @@ public class TrainingController {
         }
     }
 
-    @RequestMapping(value = "/saveTrainig", method = RequestMethod.POST)
-    public String saveTrainig(Training training, @RequestParam(value = "alarm", required = false) String alarm, ModelMap map, HttpServletResponse response) {
+    /**
+     * Сохранение тренировки
+     * @param training
+     * @param alarm режим напоминания
+     * @param map
+     * @param response
+     * @return msg
+     */
+    @RequestMapping(value = "/saveTraining", method = RequestMethod.POST)
+    public String saveTraining(Training training, @RequestParam(value = "alarm", required = false) String alarm, ModelMap map, HttpServletResponse response) {
         try {
             if (alarm != null) {
                 training.setNotificate(trainingService.getNotificate(training.getTargetDate(), alarm));
@@ -159,7 +212,7 @@ public class TrainingController {
      * @param id       Тип тренировок
      * @param map      ModelMap
      * @param response response
-     * @return сообщение
+     * @return msg
      */
     @RequestMapping(value = "deleteTraining/{id}", method = RequestMethod.POST)
     public String deleteTraining(@PathVariable("id") Integer id, ModelMap map, HttpServletResponse response) {

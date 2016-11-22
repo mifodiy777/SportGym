@@ -2,7 +2,6 @@ package ru.innopolis.sportgym.controller;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,6 @@ public class AjaxInterceptor extends LoginUrlAuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-
         if (request.getHeader("X-AjaxRequest") != null) {
             request.getSession().invalidate();
             response.sendError(401, "");

@@ -13,5 +13,10 @@ import java.util.List;
 @Repository
 public interface TrainingTypeDAO extends JpaRepository<TrainingType, Integer> {
 
+    /**
+     * Список типов определенного пользователя
+     * @param user пользователь
+     * @return список
+     */
     List<TrainingType> findByUser(User user);
 }

@@ -2,6 +2,8 @@ package ru.innopolis.sportgym.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.innopolis.sportgym.DAO.RoleDAO;
@@ -67,6 +69,13 @@ public class UserServiceImpl implements UserService {
         } catch (DataIntegrityViolationException e) {
             throw new DataSQLException("Ощибка получения данных из базы");
         }
+    }
 
+    public User getCurrentUser() {
+        try {
+            return userDAO.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        } catch (SQLException e) {
+            return null;
+        }
     }
 }

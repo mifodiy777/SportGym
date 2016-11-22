@@ -9,6 +9,7 @@ import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 
 /**
+ * Класс binder типа тренировок
  * Created by Кирилл on 20.11.2016.
  */
 public class TrainingTypeEditor extends PropertyEditorSupport {
@@ -22,7 +23,7 @@ public class TrainingTypeEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
         try {
-            setValue(text.equals("") ? null : typeService.getTrainigType(Integer.parseInt(text)));
+            setValue(text.equals("") ? null : typeService.getTrainingType(Integer.parseInt(text)));
         } catch (DataSQLException e) {
             setValue(null);
         }

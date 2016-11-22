@@ -12,10 +12,12 @@ import java.util.Date;
 import static ru.innopolis.sportgym.config.Constance.DATE_FORMAT;
 
 /**
+ * Класс binder даты
  * Created by Кирилл on 19.11.2016.
  */
 public class CalendarCustomEditor extends PropertyEditorSupport {
 
+    //Формат даты
     private String format;
 
     public CalendarCustomEditor(String format) {

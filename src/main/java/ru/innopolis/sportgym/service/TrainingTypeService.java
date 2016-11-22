@@ -11,13 +11,13 @@ import java.util.List;
  */
 public interface TrainingTypeService  {
 
-    TrainingType getTrainigType(Integer id) throws DataSQLException;
+    TrainingType getTrainingType(Integer id) throws DataSQLException;
 
     List<TrainingType> findByUser(User user) throws DataSQLException;
 
-    TrainingType saveTrainigType(TrainingType trainingType) throws DataSQLException;
+    TrainingType saveTrainingType(TrainingType trainingType) throws DataSQLException;
 
-    void deleteTrainigType(Integer id) throws DataSQLException;
+    void deleteTrainingType(Integer id) throws DataSQLException;
 
 
 }

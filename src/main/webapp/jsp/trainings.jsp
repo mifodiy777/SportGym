@@ -7,7 +7,7 @@
             showErrorMessage(message);
         }).DataTable({
             "ajax": {
-                "url": "allTrainigs/${currentType.id}",
+                "url": "allTrainings/${currentType.id}",
                 "type": "POST"
             },
             "fnDrawCallback": function () {
@@ -70,7 +70,7 @@
                 <h3>Пусто</h3>
             </c:if>
             <c:forEach items="${trainingType}" var="type">
-                <a href="traningPage?id=${type.id}"
+                <a href="trainingPage?id=${type.id}"
                    class="list-group-item  <c:if test="${type.id eq currentType.id}">active</c:if>">
                         ${type.name}
                 </a>

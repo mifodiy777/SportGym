@@ -18,27 +18,13 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class SecurityController {
-
-    private final UserService userService;
-
-    @Autowired
-    public SecurityController(UserService userService) {
-        this.userService = userService;
-    }
-
     /**
      * Стартовая страница
      *
      * @return стартовая страница
      */
     @RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
-    public String start(HttpSession session) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        try {
-            session.setAttribute("userCurrent", userService.findByLogin(user.getUsername()));
-        } catch (DataSQLException e) {
-            e.printStackTrace();
-        }
+    public String start() {
         return "index";
     }
 

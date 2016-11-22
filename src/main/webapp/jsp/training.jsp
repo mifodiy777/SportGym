@@ -13,10 +13,10 @@
 
         $('.datetimepicker').datetimepicker({
             locale: 'ru',
-            minDate:"moment"
+            minDate: "moment"
         });
 
-        $("#addTrainigForm").validate({
+        $("#addTrainingForm").validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
                     success: function (html) {
@@ -40,7 +40,7 @@
             }
         });
 
-        $("#addTrainigForm").submit(function (e) {
+        $("#addTrainingForm").submit(function (e) {
             e.preventDefault();
             $(this).valid();
             return false;
@@ -50,14 +50,15 @@
 </script>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <p class="panel-title">Добавление тренировки: ${trainig.type.name}</p>
+        <p class="panel-title">Добавление тренировки: ${training.type.name}</p>
     </div>
     <div class="panel-body">
         <div class="col-md-8">
-            <form:form modelAttribute="trainig" id="addTrainigForm" method="post" action="saveTrainig">
+            <form:form modelAttribute="training" id="addTrainingForm" method="post" action="saveTraining">
                 <form:hidden path="id"/>
                 <form:hidden path="user"/>
                 <form:hidden path="type"/>
+                <form:hidden path="complete"/>
                 <form:hidden path="version"/>
                 <div class="form-group">
                     <label class="control-label">Дата/Время тренировки: </label>

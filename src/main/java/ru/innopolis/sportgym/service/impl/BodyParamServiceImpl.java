@@ -24,6 +24,8 @@ public class BodyParamServiceImpl implements BodyParamService {
         this.bodyParamDAO = bodyParamDAO;
     }
 
+    /* C R U D операции*/
+
     @Override
     public BodyParam getBodyParam(Integer id) throws DataSQLException {
         try {

@@ -44,7 +44,7 @@ public class UserController {
     /**
      * Страница регистрации
      *
-     * @return Страница регистрации
+     * @return jsp
      */
     @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
     public String registration() {
@@ -69,25 +69,32 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = {"/editUserPage/{id}"}, method = RequestMethod.GET)
-    public String editUserPage(@PathVariable("id") Integer id, ModelMap map, HttpServletResponse response) {
-        try {
-            map.addAttribute("user", userService.getUser(id));
-            return "editUser";
-        } catch (DataSQLException e) {
-            map.addAttribute("message", "Ошибка получения данных для формы");
-            logger.error("Ошибка получения данных для формы", e);
-            response.setStatus(409);
-            return "error";
-        }
+    /**
+     * Форма редактирование пользователя
+     *
+     * @param map
+     * @return jsp
+     */
+    @RequestMapping(value = {"/editUserPage"}, method = RequestMethod.GET)
+    public String editUserPage( ModelMap map) {
+        map.addAttribute("user", userService.getCurrentUser());
+        return "editUser";
+
     }
 
+    /**
+     * Сохранение отредактированного пользователя
+     *
+     * @param user     пользователь
+     * @param map
+     * @param response
+     * @return msg
+     */
     @RequestMapping(value = {"/editProfile"}, method = RequestMethod.POST)
-    public String editProfile(User user, ModelMap map, HttpServletResponse response, HttpSession session) {
+    public String editProfile(User user, ModelMap map, HttpServletResponse response) {
         try {
             user.setPassword(userService.getUser(user.getId()).getPassword());
             userService.saveProfile(user);
-            session.setAttribute("userCurrent", user);
             map.addAttribute("message", "Пользователь успешно сохранен!");
             return "success";
         } catch (DataSQLException e) {

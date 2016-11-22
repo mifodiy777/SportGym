@@ -4,7 +4,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $("#addTrainigForm").validate({
+        $("#addTrainingForm").validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
                     success: function (html) {
@@ -28,7 +28,7 @@
             }
         });
 
-        $("#addTrainigForm").submit(function (e) {
+        $("#addTrainingForm").submit(function (e) {
             e.preventDefault();
             $(this).valid();
             return false;
@@ -38,11 +38,11 @@
 </script>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <p class="panel-title">Добавление тренировки: ${trainig.type.name}</p>
+        <p class="panel-title">Добавление тренировки: ${training.type.name}</p>
     </div>
     <div class="panel-body">
         <div class="col-md-8">
-            <form:form modelAttribute="trainig" id="addTrainigForm" method="post" action="saveTrainig">
+            <form:form modelAttribute="training" id="addTrainingForm" method="post" action="saveTraining">
                 <form:hidden path="id"/>
                 <form:hidden path="user"/>
                 <form:hidden path="type"/>
@@ -50,35 +50,35 @@
                 <form:hidden path="notificate"/>
                 <form:hidden path="version"/>
                 <input type="hidden" name="complete" value="true">
-                <c:if test="${trainig.type.distance}">
+                <c:if test="${training.type.distance}">
                     <div class="form-group">
                         <label class="control-label">Дистанция: </label>
                         <form:input path="distance" id="distance" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
-                <c:if test="${trainig.type.time}">
+                <c:if test="${training.type.time}">
                     <div class="form-group">
                         <label class="control-label">Время: </label>
                         <form:input path="time" id="time" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
-                <c:if test="${trainig.type.count}">
+                <c:if test="${training.type.count}">
                     <div class="form-group">
                         <label class="control-label">Количество: </label>
                         <form:input path="count" id="count" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
-                <c:if test="${trainig.type.attempt}">
+                <c:if test="${training.type.attempt}">
                     <div class="form-group">
                         <label class="control-label">Попытки: </label>
                         <form:input path="attempt" id="attempt" cssClass="required digits form-control"/>
                         <span class="help-block"></span>
                     </div>
                 </c:if>
-                <c:if test="${trainig.type.weight}">
+                <c:if test="${training.type.weight}">
                     <div class="form-group">
                         <label class="control-label">Вес: </label>
                         <form:input path="weight" id="weight" cssClass="required  digits form-control"/>

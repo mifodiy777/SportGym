@@ -13,6 +13,7 @@ import java.util.Date;
 import static ru.innopolis.sportgym.config.Constance.DATE_FORMAT;
 
 /**
+ * Класс binder пользователя
  * Created by Кирилл on 20.11.2016.
  */
 public class UserEditor extends PropertyEditorSupport {

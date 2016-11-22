@@ -16,6 +16,7 @@ public class BodyParam {
     @Column(name = "id")
     private Integer id;
 
+    //Пользователь
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
@@ -44,6 +45,7 @@ public class BodyParam {
     @Column(name = "forearm")
     private Short forearm;
 
+    //Версия/ оптимистическая блокировка
     @Version
     @Column(name = "version")
     private Long version;

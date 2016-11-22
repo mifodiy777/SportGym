@@ -23,8 +23,8 @@ function showErrorMessage(html) {
     $("#messages").html(html).show(800).delay(4000).hide(1000);
 }
 
-function editUser(id) {
-    $.get("editUserPage/" + id, function (html) {
+function editUser() {
+    $.get("editUserPage", function (html) {
         $("#profileForm").html(html);
     }).fail(function (xhr) {
         if (xhr.status == 409) {
@@ -41,15 +41,15 @@ function addBodyParam() {
     })
 }
 
-function addTrainigType() {
-    $.get("trainigTypeForm", function (html) {
+function addTrainingType() {
+    $.get("trainingTypeForm", function (html) {
         $("#formPanel").html(html).show();
         $(".addBtn").hide();
     })
 }
 
 function addTraining(type) {
-    $.get("trainigForm", {type: type}, function (html) {
+    $.get("trainingForm", {type: type}, function (html) {
         $("#formPanel").html(html).show();
         $(".addBtn").hide();
     }).fail(function (xhr) {
@@ -131,7 +131,7 @@ function deleteTraining(id) {
 }
 
 function completeTraning(id) {
-    $.get("trainigComplete/" + id, function (html) {
+    $.get("trainingComplete/" + id, function (html) {
         $("#formPanel").html(html).show();
         $(".addBtn").hide();
     }).fail(function (xhr) {

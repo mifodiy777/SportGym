@@ -15,13 +15,15 @@ public interface TrainingService {
 
     Training getTraining(Integer id) throws DataSQLException;
 
-    List<Training> findByUserAndType(User user, TrainingType type)throws DataSQLException;
+    List<Training> findByUserAndType(User user, TrainingType type) throws DataSQLException;
 
     Training saveTraining(Training training) throws DataSQLException;
 
     Calendar getNotificate(Calendar target, String alarm);
 
     void deleteTraining(Integer id) throws DataSQLException;
+
+    List<Training> findByUserAndComplete(User user, Boolean complete) throws DataSQLException;
 
 
 }
